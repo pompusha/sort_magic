@@ -1,0 +1,35 @@
+.div1{
+    width: 150px;
+    height: 160px;
+    border: 4px black solid;
+    border-radius: 10px;
+    /* background-color: rgba(76, 43, 85, 0.7); */
+}
+
+.main{
+
+    display: flex;
+   
+    
+
+}
+
+div{
+    display: flex;
+    flex-direction: row;
+    width:10px;
+    align-items: flex-end;
+}
+
+/* table{
+    display: flex;
+    border: 3px black solid;
+    align-items: flex-end;
+}
+td {
+	width: 4px;
+	height: 50px;
+	border: 1px solid black;
+    display: flex;
+    
+} */
