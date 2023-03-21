@@ -11,7 +11,7 @@
 Задание 2:
 Сверстать внешний прямоугольник, чтобы можно было задавать любой размер для лестницы.
 Чтобы толщины и разница высот ступенек была постоянной, а внешняя граница двигалась от изменения n. 
-Левый верхний угол внешнего бокса должен быть фиксирован.
+Левый верхний угол внешнего бокса должен быть фиксирован.DONE
 
 
 Задание 3:
@@ -21,7 +21,7 @@
 Задание 4:
 Добавить кнопку Grey внутрь внешнего бокса - перекрасить все столбцы в серый цвет.
 Чтобы она при нажании красила все столбцы в серый цвет и меняла имя на Rainbow и повторное нажатие 
-снова красило в радужный цвет все столбцы и кнопка снова становилась Grey.
+снова красило в радужный цвет все столбцы и кнопка снова становилась Grey. 
 
 Задание 5:
 Добавить панель справа от внешнего прямоугольника ladder - c полями ввода ширины столбцов и разности высот.
@@ -88,13 +88,14 @@ const colorArray = [
   "#4DB3FF",
 ];
 let width = 4;
+coef_height = 2.8;
 // создание 50 дивов
 
 // console.log(width);
-function fifty_spartans(ladder, n, width_) {
+function fifty_spartans(ladder, n, width_, heights_coeficient) {
   const heights = [];
   for (i = 0; i < n; i++) {
-    heights[i] = 10 + i * 2.8;
+    heights[i] = 10 + i * heights_coeficient;
   }
 
   for (i = 1; i < n + 1; i++) {
@@ -155,24 +156,33 @@ const shuffle = () => {
 
 // установка размеров рамки
 function chanjeSize(object, width_) {
-  document.getElementById(object).style.width = 10 * 50;
+  document.getElementById(object).style.width = width_ * 50;
   console.log();
 }
 
-chanjeSize("f1", 4);
-fifty_spartans(ladder, 50, width);
+chanjeSize("f1", width);
+fifty_spartans(ladder, 50, width, coef_height, coef_height);
 
 // test INPUT
-let some = [];
-function tryn() {
-  // ;
-  a = width_input.value;
-  alert(typeof a);
-  // // array.forEach(element => {
-  //   while (ladder.hasChildNodes()) {
-  //   //   ladder.removeChild(ladder.firstChild);
-  //   // }
-  // });
-  // fifty_spartans(ladder, 50, width_input.value);
-}
-console.log(some);
+
+const widthchanger = () => {
+  let a = width_input.value;
+  let b = document.getElementById("input_height").value;
+  while (ladder.hasChildNodes()) {
+    ladder.removeChild(ladder.firstChild);
+  }
+  width = a;
+  coef_height = b;
+  fifty_spartans(ladder, 50, width, coef_height);
+  chanjeSize("f1", width);
+};
+
+// const height_chenge = () => {
+//   let a = document.getElementById("input_height");
+//   while (ladder.hasChildNodes()) {
+//     ladder.removeChild(ladder.firstChild);
+//   }
+//   coef_height = a;
+//   fifty_spartans(ladder, 50, width, coef_height);
+//   chanjeSize("f1", width);
+// };
