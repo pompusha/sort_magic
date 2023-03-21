@@ -1,37 +1,23 @@
-.div1{
-    width: 250px;
-    height: 200px;
-    /* border: 2px black solid; */
-    /* border-radius:5px; */
-    /* background-color: rgba(76, 43, 85, 0.7); */
+*{
+    margin: 0;
 }
 
-.main{
 
+
+.main{
+    
     display: flex;
     width: 100%;
-    height: 160px;
+    height: 200px;
     border: 1px black solid;
     border-radius: 1px;
 }
-
+.grey {
+    background-color: grey;
+}
 
 div{
     display: flex;
     flex-direction: row;
-    width:4px;
-    align-items: flex-end;
-}
-
-/* table{
-    display: flex;
-    border: 3px black solid;
-    align-items: flex-end;
-}
-td {
-	width: 4px;
-	height: 50px;
-	border: 1px solid black;
-    display: flex;
-    
-} */
+    width:8px;
+    align-items: flex-end;}
