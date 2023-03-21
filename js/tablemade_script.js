@@ -90,8 +90,6 @@ const colorArray = [
 let width = 4;
 coef_height = 2.8;
 // создание 50 дивов
-
-// console.log(width);
 function fifty_spartans(ladder, n, width_, heights_coeficient) {
   const heights = [];
   for (i = 0; i < n; i++) {
@@ -132,7 +130,6 @@ function grey() {
 
 // кнопка перемешивания столбиков
 const shuffle = () => {
-  // console.log(fiftin_spartains);
   let arr_fiftin_spartains = [].slice.call(fiftin_spartains);
   while (ladder.hasChildNodes()) {
     ladder.removeChild(ladder.firstChild);
@@ -151,7 +148,6 @@ const shuffle = () => {
     ];
     arr_result.forEach((el) => ladder.appendChild(el));
   });
-  // console.log(arr_fiftin_spartains);
 };
 
 // установка размеров рамки
@@ -163,7 +159,7 @@ function chanjeSize(object, width_) {
 chanjeSize("f1", width);
 fifty_spartans(ladder, 50, width, coef_height, coef_height);
 
-// test INPUT
+// height and weight
 
 const widthchanger = () => {
   let a = width_input.value;
@@ -176,13 +172,3 @@ const widthchanger = () => {
   fifty_spartans(ladder, 50, width, coef_height);
   chanjeSize("f1", width);
 };
-
-// const height_chenge = () => {
-//   let a = document.getElementById("input_height");
-//   while (ladder.hasChildNodes()) {
-//     ladder.removeChild(ladder.firstChild);
-//   }
-//   coef_height = a;
-//   fifty_spartans(ladder, 50, width, coef_height);
-//   chanjeSize("f1", width);
-// };
