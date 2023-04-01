@@ -1,34 +1,3 @@
-/*
-
-Задание 1:
-порядок применения стилей
-1) Стиль вписанный в элемент html
-2) Стиль считанный в id
-3) Стиль считанный в class
-4) !
-5) *
-
-Задание 2:
-Сверстать внешний прямоугольник, чтобы можно было задавать любой размер для лестницы.
-Чтобы толщины и разница высот ступенек была постоянной, а внешняя граница двигалась от изменения n. 
-Левый верхний угол внешнего бокса должен быть фиксирован.DONE
-
-
-Задание 3:
-Написать фунцию shuffle, которая будет по кнопке перемешивать cтупеньки.
-Это кнопка должна быть ниже поля. DONE
-
-Задание 4:
-Добавить кнопку Grey внутрь внешнего бокса - перекрасить все столбцы в серый цвет.
-Чтобы она при нажании красила все столбцы в серый цвет и меняла имя на Rainbow и повторное нажатие 
-снова красило в радужный цвет все столбцы и кнопка снова становилась Grey. 
-
-Задание 5:
-Добавить панель справа от внешнего прямоугольника ladder - c полями ввода ширины столбцов и разности высот.
-И кнопкой применить.
-
-*/
-//
 const width_input = document.getElementById("input_width");
 const button_grey = document.getElementById("button_grey");
 const ladder = document.getElementById("rodia_ti_zloy");
@@ -111,6 +80,8 @@ function fifty_spartans(ladder, n, width_, heights_coeficient) {
 
 // кнопка изменение цвета
 function grey() {
+  //Лучше завести внутреннюю переменную - индикатор "серый/радуга". Так вызывая переменную в if блоках будет
+  //проше следить за тем в каком состоянии ты находишься. Например захочешь ты сменить название кнопки и придется по всему коду ифы переписывать.
   if (button_grey.value === "grey") {
     button_grey.value = "Rainbow";
     for (i in fiftin_spartains) {
@@ -128,14 +99,17 @@ function grey() {
   }
 }
 
-// кнопка перемешивания столбиков
+// кнопка перемешивания столбиков (объявляй просто функцией)
 const shuffle = () => {
+	//хорошо разбил на массив
   let arr_fiftin_spartains = [].slice.call(fiftin_spartains);
   while (ladder.hasChildNodes()) {
     ladder.removeChild(ladder.firstChild);
   }
   let shiffeled_arr_fiftin_spartains = [];
   let shiffeled2_arr_fiftin_spartains = [];
+  //Из-за того, что Math.random работает достаточно равномерно - получается, что оба массива *fiftin_spartains содержат 
+  //похожие кластеры - получается две горки. Предлагаю улучшить алгоритм - подумай.
   arr_fiftin_spartains.forEach((div_element) => {
     if (Math.round(Math.random()) === 1) {
       shiffeled_arr_fiftin_spartains.push(div_element);
@@ -160,8 +134,8 @@ chanjeSize("f1", width);
 fifty_spartans(ladder, 50, width, coef_height, coef_height);
 
 // height and weight
-
 const widthchanger = () => {
+  //следи за названиями переменных. Тут как минимум лучше было назвать "w" и "h"
   let a = width_input.value;
   let b = document.getElementById("input_height").value;
   while (ladder.hasChildNodes()) {
