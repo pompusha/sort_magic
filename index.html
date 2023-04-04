@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sort magic</title>
-    <link rel="stylesheet" href="css/stylesheet.css" />
+    <link rel="stylesheet" href="CSS/stylesheet.css" />
   </head>
   <body>
 	<!-- Предлагаю придерживаться хорошего нейминга переменных, классов и айдишников. Это хороший навык для программиста - уметь придумывать имена, которые говорят сами за себя.
@@ -17,19 +17,29 @@
 	  <!-- Форма - это прикольно. Вообще формы чаще используют, когда выполняют submit - т.е. перезагружают страницу, отправляя параметры. 
 	  Этого делать не надо, но в любом случае - форму нужно как-то называть, т.е. давай ей id - иначе не очень ясно зачем она. -->
       <!-- width and height -->
-      <form>
-		<!-- Немного кривовато объявлены кнопки - глянь, как сделана shuffle -->
-        width<input type="number" id ="input_width" value="" ><br>
-        heigth coeficient<input type="number" id ="input_height" value="" ><br>
-        <button type="button" onclick="widthchanger()">press the button</button>
-      </form>
+
+     <div class="div_form" id="div_form_1">
+       <form class="form_1">
+         <!-- Немного кривовато объявлены кнопки - глянь, как сделана shuffle -->
+         width<input class="input_1" type="number" id ="input_width" value="" ><br>
+         Heigh step<input type="number" id ="input_height" value="" ><br>
+         <div class="size_button" id="sizebotton_1">
+
+           <button type="button" onclick="width_changer()">Apply</button>
+          </div>
+        </form>
+      </div>
 	  
 	  <!-- Смысл кнопки в том, что когда на ней написано Grey - ее нажатие как раз приводит к серой раскраске. А когда Rainbow - то к радужной.  -->
-      <input class="butRandom" type="button" value="Rainbow" onclick="grey()" id="button_grey"></input> 
+      <input class="butRandom" type="button" value="grey" onclick="remove_color()" id="button_grey"></input> 
+    </div>
+    <div class="shuffle_one" id="shuffle_1">
+      <input type="button" value="Change possition" onclick="shuffle()" id="button_shuffle"></input> 
     </div>
 
-    <input type="button" value="Change possition" onclick="shuffle()" id="button_shuffle"></input> 
+    <div class="additional_memmory" id="id_add_mem"></div>
     
-    <script src="js/tablemade_script.js"></script>
+    <!-- <script src="js/Additional_memmory.js"></script> -->
+    <script src="js/tablemade_script.js" ></script>
   </body>
 </html>
