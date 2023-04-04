@@ -57,7 +57,7 @@ const colorArray = [
   "#4DB3FF",
 ];
 let width = 4;
-coef_height = 2.8;
+coef_height = 3;
 // создание 50 дивов
 function fifty_spartans(ladder, n, width_, heights_coeficient) {
   const heights = [];
@@ -73,46 +73,65 @@ function fifty_spartans(ladder, n, width_, heights_coeficient) {
     column.setAttribute("class", "grey");
     column.style.backgroundColor = colorArray[(i - 1) % colorArray.length];
     column.style.height = heights[i - 1];
-    console.log(width_);
     column.style.width = width_;
   }
 }
 
 // кнопка изменение цвета
-function grey() {
-  //Лучше завести внутреннюю переменную - индикатор "серый/радуга". Так вызывая переменную в if блоках будет
-  //проше следить за тем в каком состоянии ты находишься. Например захочешь ты сменить название кнопки и придется по всему коду ифы переписывать.
+function remove_color() {
   if (button_grey.value === "grey") {
     button_grey.value = "Rainbow";
-    for (i in fiftin_spartains) {
-      fiftin_spartains[i].style.backgroundColor =
-        colorArray[i % colorArray.length];
-    }
+    button_grey.className = "butRandomNEXT";
+    return make_grey_again();
   } else if (button_grey.value === "Rainbow") {
     button_grey.value = "grey";
-
-    for (i in fiftin_spartains) {
-      fiftin_spartains[i].style.backgroundColor = "grey";
-      fiftin_spartains[i].style.border = "black";
-      fiftin_spartains[i].style.borderWidth = "0.1";
-    }
+    button_grey.className = "butRandom";
+    return make_colored();
+  }
+}
+// make_grey_button
+function make_colored() {
+  for (i in fiftin_spartains) {
+    fiftin_spartains[i].style.backgroundColor =
+      colorArray[i % colorArray.length];
+    fiftin_spartains[i].style.border = "none";
   }
 }
 
-// кнопка перемешивания столбиков (объявляй просто функцией)
-const shuffle = () => {
-	//хорошо разбил на массив
+//make kolored
+function make_grey_again() {
+  for (i in fiftin_spartains) {
+    fiftin_spartains[i].style.backgroundColor = "grey";
+    fiftin_spartains[i].style.border = "solid black";
+    fiftin_spartains[i].style.borderWidth = "0.01";
+  }
+}
+
+//
+
+// function grey() {
+//   //Лучше завести внутреннюю переменную - индикатор "серый/радуга". Так вызывая переменную в if блоках будет -DONE function remove_color()
+//   //проше следить за тем в каком состоянии ты находишься. Например захочешь ты сменить название кнопки и придется по всему коду ифы переписывать. DONE
+//
+// кнопка перемешивания столбиков (объявляй просто функцией)-DONE
+function shuffle() {
+  //хорошо разбил на массив
   let arr_fiftin_spartains = [].slice.call(fiftin_spartains);
   while (ladder.hasChildNodes()) {
     ladder.removeChild(ladder.firstChild);
   }
   let shiffeled_arr_fiftin_spartains = [];
   let shiffeled2_arr_fiftin_spartains = [];
-  //Из-за того, что Math.random работает достаточно равномерно - получается, что оба массива *fiftin_spartains содержат 
+  //Из-за того, что Math.random работает достаточно равномерно - получается, что оба массива *fiftin_spartains содержат
   //похожие кластеры - получается две горки. Предлагаю улучшить алгоритм - подумай.
+
   arr_fiftin_spartains.forEach((div_element) => {
-    if (Math.round(Math.random()) === 1) {
+    if (Math.floor(Math.random() * 4) === 0) {
       shiffeled_arr_fiftin_spartains.push(div_element);
+    } else if (Math.floor(Math.random() * 4) === 1) {
+      shiffeled_arr_fiftin_spartains.unshift(div_element);
+    } else if (Math.floor(Math.random() * 4) === 2) {
+      shiffeled2_arr_fiftin_spartains.unshift(div_element);
     } else {
       shiffeled2_arr_fiftin_spartains.push(div_element);
     }
@@ -122,8 +141,24 @@ const shuffle = () => {
     ];
     arr_result.forEach((el) => ladder.appendChild(el));
   });
-};
+}
 
+//
+/*
+arr_fiftin_spartains.forEach((div_element) => {
+  if (Math.round(Math.random()) === 1) {
+    if (Math.round(Math.random()) === 1){
+      shiffeled_arr_fiftin_spartains.push(div_element)
+    } else {shiffeled_arr_fiftin_spartains.unshift(div_element)}
+    }
+    else {
+      if (Math.round(Math.random()) === 1)
+      {shiffeled2_arr_fiftin_spartains.push(div_element)
+      } else {shiffeled2_arr_fiftin_spartains.unshift(div_element)}
+
+    })
+  }
+*/
 // установка размеров рамки
 function chanjeSize(object, width_) {
   document.getElementById(object).style.width = width_ * 50;
@@ -134,15 +169,38 @@ chanjeSize("f1", width);
 fifty_spartans(ladder, 50, width, coef_height, coef_height);
 
 // height and weight
-const widthchanger = () => {
-  //следи за названиями переменных. Тут как минимум лучше было назвать "w" и "h"
-  let a = width_input.value;
-  let b = document.getElementById("input_height").value;
-  while (ladder.hasChildNodes()) {
-    ladder.removeChild(ladder.firstChild);
+const width_changer = () => {
+  if (
+    width_input.value === "" &&
+    document.getElementById("input_height").value === ""
+  ) {
+    console.log("no any size ");
+  } else {
+    let w = width_input.value;
+    let h = document.getElementById("input_height").value;
+    while (ladder.hasChildNodes()) {
+      ladder.removeChild(ladder.firstChild);
+    }
+    width = w;
+    coef_height = h;
+    if (button_grey.value === "grey") {
+      fifty_spartans(ladder, 50, width, coef_height);
+      chanjeSize("f1", width);
+    } else {
+      fifty_spartans(ladder, 50, width, coef_height);
+      return make_grey_again();
+    }
   }
-  width = a;
-  coef_height = b;
-  fifty_spartans(ladder, 50, width, coef_height);
-  chanjeSize("f1", width);
 };
+
+//следи за названиями переменных. Тут как минимум лучше было назвать "w" и "h" - DONE
+//   let w = width_input.value;
+//   let h = document.getElementById("input_height").value;
+//   while (ladder.hasChildNodes()) {
+//     ladder.removeChild(ladder.firstChild);
+//   }
+//   width = w;
+//   coef_height = h;
+//   fifty_spartans(ladder, 50, width, coef_height);
+//   chanjeSize("f1", width);
+// };
