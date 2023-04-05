@@ -78,6 +78,7 @@ function fifty_spartans(ladder, n, width_, heights_coeficient) {
 }
 
 // кнопка изменение цвета
+// Хорошая идея - проверять, что вообще сейчас отображено. Но лучше назвать функцию понятнее, типа check_color
 function remove_color() {
   if (button_grey.value === "grey") {
     button_grey.value = "Rainbow";
@@ -89,7 +90,7 @@ function remove_color() {
     return make_colored();
   }
 }
-// make_grey_button
+// make_grey_button - коментарий не понятный, зачем тут название второй функции?
 function make_colored() {
   for (i in fiftin_spartains) {
     fiftin_spartains[i].style.backgroundColor =
@@ -98,7 +99,7 @@ function make_colored() {
   }
 }
 
-//make kolored
+//make kolored - да кровь же из глаз! Colored!
 function make_grey_again() {
   for (i in fiftin_spartains) {
     fiftin_spartains[i].style.backgroundColor = "grey";
@@ -143,7 +144,8 @@ function shuffle() {
   });
 }
 
-//
+// Старайся не оставлять закоментированный код - это признак плохого тона. 
+// Если ты не напишешь коментарий - почему он у тебя закоменчен - то это уже просто гавно
 /*
 arr_fiftin_spartains.forEach((div_element) => {
   if (Math.round(Math.random()) === 1) {
@@ -159,12 +161,13 @@ arr_fiftin_spartains.forEach((div_element) => {
     })
   }
 */
-// установка размеров рамки
+// установка размеров рамки chanGe!!!!!!
 function chanjeSize(object, width_) {
   document.getElementById(object).style.width = width_ * 50;
   console.log();
 }
 
+//chanGe
 chanjeSize("f1", width);
 fifty_spartans(ladder, 50, width, coef_height, coef_height);
 
