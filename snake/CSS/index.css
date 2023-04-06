@@ -1,0 +1,45 @@
+*{
+  box-sizing: border-box
+  ;background-color: antiquewhite;
+  margin: 0;
+  padding: 0;
+}
+
+.sourcediv {
+  border: black solid 1px;
+  width: 500px;
+  height: 600px;
+  padding: 2px;
+  background-color: aliceblue;
+}
+
+.snake_whoal_field{
+  border: black solid 1px;
+  width: 490px;
+  height: 590px;
+  margin: 0 auto;
+  padding: 2px;
+  background-color: azure;
+}
+
+.snake_gamefiel{
+  border: black solid 2px;
+  width: 480px;
+  height: 400px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1px;
+  grid-auto-flow: row;
+  background-color: black;
+  grid-template-columns: repeat(20, 1fr);
+}
+
+button{
+  cursor: pointer;
+  width: 50px;
+  height: 30px;
+}
+/* .grid_try{
+ display: grid;
+ background-color: aqua;
+} */
