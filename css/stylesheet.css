@@ -5,58 +5,57 @@
     font-family: sans-serif;
     letter-spacing: 2px;
     text-transform: uppercase;
-    
 }
 
 .main{
-    /* padding-top: 10mm; */
     display: flex;
-    width: auto;
+    width: fit-content;
+    height: fit-content;
     border: 1px black solid;
     border-radius: 1px;
+    margin-right: 5%;
+    min-width: 200px;
+    min-height: 157px;
+    position: relative;
 }
+
 .grey {
     background-color: grey;
 }
+
 .div1 {
-padding-top: 10mm;
-padding-left: 10%;
-}
-div{
-    position: relative;
     display: flex;
+    margin-left: 10%;
+    margin-top: 10mm;
+}
+
+div{
     flex-direction: row;
-  
-    align-items: flex-end;}
+    align-items: flex-end;
+}
 
 
 input{
     cursor: pointer;
-    
 }
-button{
-    cursor: pointer;
-}
+
     .butRandom{
-     
         position: absolute;
-        top: 0px;
-        left: 0px;
+        top: 10px;
+        left: 10px;
         width: 80px;
         background-color: transparent;
         border: 1px solid black;
         transform: translateY(0%) ; 
-        transition: transform 2s; 
-        
-      
+        transition: transform 2s;     
     }
 
  .butRandomNEXT{
     /* content: ''; */
     color: rgb(255, 255, 255);
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 10px;
+    left: 10px;
     width: 80px;
     border: 1px solid black;
     background-image: conic-gradient(
@@ -67,21 +66,87 @@ button{
         #FFFF00,
         #FF7F00,
         #FF0000);
-
-    transform: translateY(+128%) translateX(+121%); 
-    
+    transform: translateY(+128%); 
     transition: transform 4s; 
-    
-    
  }
- .div_form{
-    padding-left: 20px;
- }
+
 .size_button{
     padding-top: 10px;
 }
+
 .shuffle_one{
     padding-top: 20px;
     padding-left: 10px;
+    margin-bottom: 20px;
 }
- 
+
+.additional_memmory{
+    border: solid black 1px;
+    display: flex;
+    min-width: 200px;
+    min-height: 157px;
+    margin-left: 10%;
+    margin-bottom: 10px;
+    background-color: antiquewhite;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+}
+
+.name_of_field{
+    width: 160px;
+    position: absolute;
+    top: 10%;
+    left:10%;
+    right: 10%;
+    font-size: 10px;
+}
+
+.name_of_field_ladder{
+    width: 160px;
+    position: absolute;
+    top: 1%;
+    left: 80px;
+    right: 10%;
+    font-size: 10px;
+}
+
+form { 
+    margin-bottom: 5px;
+}
+
+input{
+    margin-bottom: 5px;
+}
+
+select {
+    margin-bottom: 5px;
+    width: 130px;
+    margin: 10px;
+}
+
+select:focus {
+    min-width: 150px;
+    width: auto;
+}
+
+.all_buttons_div{
+    margin-left: 10%;
+    border: solid 1px black;
+    font-size: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 200px;
+}
+
+button{
+    cursor: pointer;
+    display: block;
+    font-size: 10px;
+    margin-bottom: 5px;
+    background-color: antiquewhite;
+}
+
+input {
+    width: 50px;
+}
