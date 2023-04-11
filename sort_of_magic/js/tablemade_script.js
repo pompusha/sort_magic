@@ -108,23 +108,15 @@ function make_grey_again() {
     fiftin_spartains[i].style.borderWidth = "0.01";
   }
 }
-//
 
-// function grey() {
-//   //Лучше завести внутреннюю переменную - индикатор "серый/радуга". Так вызывая переменную в if блоках будет -DONE function remove_color()
-//   //проше следить за тем в каком состоянии ты находишься. Например захочешь ты сменить название кнопки и придется по всему коду ифы переписывать. DONE
-//
-// кнопка перемешивания столбиков (объявляй просто функцией)-DONE
 function shuffle() {
-  //хорошо разбил на массив
+
   let arr_fiftin_spartains = [].slice.call(fiftin_spartains);
   while (ladder.hasChildNodes()) {
     ladder.removeChild(ladder.firstChild);
   }
   let shiffeled_arr_fiftin_spartains = [];
   let shiffeled2_arr_fiftin_spartains = [];
-  //Из-за того, что Math.random работает достаточно равномерно - получается, что оба массива *fiftin_spartains содержат
-  //похожие кластеры - получается две горки. Предлагаю улучшить алгоритм - подумай.
 
   arr_fiftin_spartains.forEach((div_element) => {
     if (Math.floor(Math.random() * 4) === 0) {
