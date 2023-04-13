@@ -1,6 +1,6 @@
 const game_field = document.getElementById("snake_game_field");
 
-//
+// *** main script
 let score = 0;
 let old_cord = 0;
 let numbers = [
@@ -11,6 +11,7 @@ let letters = [
 ];
 let x_coord = null;
 let y_coprd = null;
+var timer;
 
 coordinate_of_id = [];
 for (i in letters) {
@@ -18,27 +19,8 @@ for (i in letters) {
     coordinate_of_id.push(`${letters[i]}:${numbers[key]}`);
   }
 }
-var timer;
-//
-function create_game_fild(n) {
-  for (i = 0; i < n; i++) {
-    let field_cube = document.createElement("div");
-    field_cube.setAttribute("class", "class" + 1);
-    field_cube.style.backgroundColor = "#DFFED9";
-    field_cube.style.display = "grid";
-    field_cube.setAttribute("id", coordinate_of_id[i]);
-    game_field.appendChild(field_cube);
-  }
-}
-create_game_fild(400);
-// show_aim_cube();
-function change_color(coord) {
-  old_cord = coord;
-  document.getElementById(coord).style.backgroundColor = "red";
-}
-function change_color_to_grey(past_cord) {
-  document.getElementById(past_cord).style.backgroundColor = "grey";
-}
+
+create_game_field(20, "#DFFED9");
 
 head = document.createElement("div");
 head.setAttribute("id", "i_am_boss");
@@ -48,15 +30,90 @@ const snake = document.getElementById("i_am_boss");
 
 let x_current_loca = 0;
 let y_current_loca = 0;
-//
+let x_past = 0;
+let y_past = 0;
+let right_butt_click = 0;
+let left_butt_click = 0;
+let direction = 2;
+// *** end main script
+
+
+function create_game_field(n, color) {
+
+  //Разобраться с тем как захерачить размер 
+  // document
+  //  .getElementById("snake_game_field")
+  //  .setAttribute("grid-template-columns", `repeat(${n}, 1fr)`);
+  for (i = 0; i < n; i++) {
+    for(j = 0; j < n; j++) {
+      let field_cube = document.createElement("div");
+      field_cube.setAttribute("class", "class" + 1);
+      field_cube.style.backgroundColor = color;
+      field_cube.style.display = "grid";
+      field_cube.setAttribute("id", coordinate_of_id[i*n + j]);
+      game_field.appendChild(field_cube);
+    }
+  }
+}
+
+
+let direction_queue = [];
+
+function left_click() {
+  direction_queue.push(1);
+}
+
+function right_click() {
+  direction_queue.push(-1);
+}
+
+function move(d) {
+  y = snake.style.getPropertyValue("--y");
+  x = snake.style.getPropertyValue("--x");
+  
+  switch (d) {
+    case 0: x--
+      break
+    case 1: y++
+      break
+    case 2: x++
+      break
+    case 3: y--
+      break
+  }
+
+  y = snake.style.setProperty("--y", y);
+  x = snake.style.setProperty("--x", x);
+  
+  if (direction_queue.length > 0) {
+    change_direction = direction_queue.shift();
+    d = (d + change_direction + 4) % 4;
+  } 
+  timer = setTimeout(move, 400, d);
+}
+
+function start_game() {
+  clearTimeout(timer);
+  move(direction);
+}
+
+function change_color(coord) {
+  old_cord = coord;
+  document.getElementById(coord).style.backgroundColor = "red";
+}
+
+function change_color_to_grey(past_cord) {
+  document.getElementById(past_cord).style.backgroundColor = "grey";
+}
+
 function show_aim_cube_and_start() {
-  // console.log("fddgdfg");
+  // console.log("show_aim_cube_and_start started");
   let x = Math.floor(Math.random() * 19);
   let y = Math.floor(Math.random() * 19);
   let coordinate = `${y}:${x}`;
   x_coord = x;
   y_coprd = y;
-  // console.log(coordinate);
+  // console.log("Coordinate of the head: " + coordinate);
   if (score === 0) {
     score++;
     // movement_of_snake();
@@ -66,9 +123,6 @@ function show_aim_cube_and_start() {
   change_color(coordinate);
   // movement_of_snake();
 }
-
-let x_past = 0;
-let y_past = 0;
 
 function sravn() {
   if (right_butt_click === 0) {
@@ -111,12 +165,10 @@ function sravn() {
   }
 }
 
-let right_butt_click = 0;
-let left_butt_click = 0;
-
-function wat_to_do(numb_from_botton) {
-  sravn();
+function what_to_do(numb_from_botton) {
   clearTimeout(timer);
+  sravn();
+  
   // console.log("left" + " " + left_butt_click);
   // console.log("rigth" + " " + right_butt_click);
   if (numb_from_botton === 0) {
@@ -136,7 +188,7 @@ function wat_to_do(numb_from_botton) {
       back_movement_y(1);
     } else if (right_butt_click > 4) {
       right_butt_click = 0;
-      return wat_to_do(1);
+      return what_to_do(1);
     }
     //
   } else if (numb_from_botton === 2) {
@@ -152,7 +204,7 @@ function wat_to_do(numb_from_botton) {
       back_movement_y(2);
     } else if (left_butt_click > 4) {
       left_butt_click = 0;
-      return wat_to_do(2);
+      return what_to_do(2);
     }
   }
   x_past = snake.style.getPropertyValue("--x");
@@ -291,9 +343,9 @@ function back_movement_y(button) {
 
 // total width: 22px;
 // total height: 22px;
-//  gap: 1px;
+// gap: 1px;
 
-// sezrch the cell
+// search the cell
 function take_a_cube() {
   if (
     x_current_loca * 21 === x_coord * 21 &&

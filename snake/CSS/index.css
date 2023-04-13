@@ -5,7 +5,7 @@
   padding: 0;
 }
 
-.sourcediv {
+.source_div{
   border: black solid 1px;
   width: 500px;
   height: 600px;
@@ -13,7 +13,7 @@
   background-color: aliceblue;
 }
 
-.snake_whoal_field{
+.snake_whole_field{
   border: black solid 1px;
   width: 490px;
   height: 590px;
@@ -22,7 +22,7 @@
   background-color: azure;
 }
 
-.snake_gamefiel{
+.snake_game_field_class{
   border: black solid 2px;
   width: fit-content;
   height: fit-content;
@@ -33,28 +33,24 @@
   background-color: black;
   grid-template-columns: repeat(20, 1fr);
   position: relative;
+  margin-bottom: 15px;
 }
 
-
-
 button{
- 
   cursor: pointer;
   width: 50px;
   height: 30px;
 }
-/* .grid_try{
- display: grid;
- background-color: aqua;
-} */
+
+.snake_button_field {
+  text-align: center;
+}
+
 .class1{
   width: 20px;
   height: 20px;
 }
 
-:root{
-
-}
 .head{
   --x:0;
   --y:0;
@@ -66,7 +62,7 @@ button{
   background-color: aqua;
   top: calc(21px* ( 0 + var(--y) ) );
   left: calc(21px* ( 0 + var(--x) ) );
-  /* left: 21px; */
+  /* left: 21px;  default param value*/
   border: 1px solid black;
   transition: 0.1s;
 }
