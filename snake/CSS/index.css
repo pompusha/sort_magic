@@ -24,17 +24,21 @@
 
 .snake_gamefiel{
   border: black solid 2px;
-  width: 480px;
-  height: 400px;
+  width: fit-content;
+  height: fit-content;
   margin: 0 auto;
   display: grid;
   gap: 1px;
   grid-auto-flow: row;
   background-color: black;
   grid-template-columns: repeat(20, 1fr);
+  position: relative;
 }
 
+
+
 button{
+ 
   cursor: pointer;
   width: 50px;
   height: 30px;
@@ -43,3 +47,26 @@ button{
  display: grid;
  background-color: aqua;
 } */
+.class1{
+  width: 20px;
+  height: 20px;
+}
+
+:root{
+
+}
+.head{
+  --x:0;
+  --y:0;
+  
+  border-radius: 5px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: aqua;
+  top: calc(21px* ( 0 + var(--y) ) );
+  left: calc(21px* ( 0 + var(--x) ) );
+  /* left: 21px; */
+  border: 1px solid black;
+  transition: 0.1s;
+}

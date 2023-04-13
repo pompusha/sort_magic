@@ -5,18 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/snake/CSS/index.css" />
+    <link rel="stylesheet" href="CSS/index.css" />
   </head>
   <body>
     <div class="sourcediv" id="source_div">
       <div class="snake_whoal_field" id="snake_whoal_field">
         <div class="snake_gamefiel" id="snake_game_field"></div>
         <div class="snake_button_field" id="snake_button_field">
-          <button type="button" onclick="show_aim_cube()">Play</button>
+          <button type="button" onclick="wat_to_do(0)" value="0">Play</button>
+          <button
+            type="button"
+            onclick="wat_to_do(1)"
+            id="_rigthtbutt"
+            value=""
+          >
+            Rigtht
+          </button>
+          <!-- <button type="button" onclick="down_move(1)">Down</button> -->
+          <button type="button" onclick="wat_to_do(2)" value="2">Left</button>
+          <!-- <button type="button" onclick="up_move(1)">Up</button> -->
         </div>
       </div>
     </div>
 
-    <script src="/snake/JS/index.js"></script>
+    <script src="JS/index.js"></script>
   </body>
 </html>
