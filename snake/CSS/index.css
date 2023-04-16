@@ -66,3 +66,13 @@ button{
   border: 1px solid black;
   transition: 0.1s;
 }
+.body{
+  position: absolute;
+  
+  
+  width: 20px;
+  height: 20px;
+  background-color: aqua;
+  top: calc(21px* ( 0 + var(--y) ) );
+  left: calc(21px* ( 0 + var(--x) ) );
+}
