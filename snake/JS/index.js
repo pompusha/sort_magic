@@ -37,8 +37,10 @@ let y_past = 0;
 let right_butt_click = 0;
 let left_butt_click = 0;
 let direction = 2;
-x_mem = [];
-y_mem = [];
+// let x_mem = [];
+// let y_mem = [];
+let x_save = [];
+let y_save = [];
 // *** end main script
 
 function create_game_field(n, color) {
@@ -90,7 +92,7 @@ function move(d) {
   y = snake.style.setProperty("--y", y);
   x = snake.style.setProperty("--x", x);
 
-  movement_body(d);
+  movement_body();
   take_a_cube();
 
   if (direction_queue.length > 0) {
@@ -98,7 +100,8 @@ function move(d) {
     d = (d + change_direction + 4) % 4;
   }
   timer = setTimeout(move, 200, d);
-  // death_condition(20);
+  death_condition(20);
+  death_from_body();
 }
 
 function start_game() {
@@ -125,7 +128,7 @@ function show_aim_cube_and_start() {
   x_coord = x;
   y_coprd = y;
   if (score === 0) {
-    score++;
+    // score++;
     return change_color(coordinate);
   } else change_color_to_grey(old_cord);
   score++;
@@ -138,53 +141,80 @@ function take_a_cube() {
     snake.style.getPropertyValue("--y") * 21 === y_coprd * 21
   ) {
     score++;
-    console.log("good job");
-    create_snake_body(score);
-    console.log(snake_whole_parts);
+    create_snake_body(
+      // создаю тело и помущаю в него х и у
+      score,
+      snake.style.getPropertyValue("--x"),
+      snake.style.getPropertyValue("--y")
+    );
     show_aim_cube_and_start();
+  }
+  if (score > 0) {
+    x_save.push(snake.style.getPropertyValue("--x"));
+    y_save.push(snake.style.getPropertyValue("--y"));
   }
 }
 
 function death_condition(n) {
-  if (
-    snake.style.getPropertyValue("--x") < 0 ||
-    snake.style.getPropertyValue("--x") >= n
-  ) {
+  if (snake.style.getPropertyValue("--x") < 0) {
+    clearTimeout(timer);
+    snake.style.setProperty("--x", 0);
+    return console.log("You lose");
+  } else if (snake.style.getPropertyValue("--x") >= n) {
     clearTimeout(timer);
     snake.style.setProperty("--x", n - 1);
     return console.log("You lose");
-  } else if (
-    snake.style.getPropertyValue("--y") < 0 ||
-    snake.style.getPropertyValue("--y") >= n
-  ) {
+  } else if (snake.style.getPropertyValue("--y") < 0) {
+    clearTimeout(timer);
+    snake.style.setProperty("--y", 0);
+    return console.log("You lose");
+  } else if (snake.style.getPropertyValue("--y") >= n) {
     clearTimeout(timer);
     snake.style.setProperty("--y", n - 1);
     return console.log("You lose");
   }
 }
+function death_from_body() {
+  for (i = 1; i < x_save.length - 1; i++) {
+    console.log(x_save[i]);
+    if (
+      snake.style.getPropertyValue("--x") === x_save[i] &&
+      snake.style.getPropertyValue("--y") === y_save[i]
+    ) {
+      console.log(snake.style.getPropertyValue("--x") + " === " + x_save[i]);
+      console.log(snake.style.getPropertyValue("--y") + " === " + y_save[i]);
+      clearTimeout(timer);
+      return console.log("You lose!!!!!!!!!!!!!");
+    }
+  }
+}
 
-function create_snake_body(i) {
+function create_snake_body(i, x_, y_) {
+  // console.log(x_);
+
   body = document.createElement("div");
   body.setAttribute("id", i);
   body.setAttribute("class", "body");
   game_field.appendChild(body);
-
-  console.log("y" + " " + snake.style.getPropertyValue("--y"));
-
-  console.log(score);
+  body.style.setProperty("--x", x_);
+  body.style.setProperty("--y", y_);
   snake_whole_parts.push(document.getElementById(i));
 }
 
-function movement_body(d) {
-  for (i in snake_whole_parts) {
-    snake_whole_parts[i].style.setProperty("--x", x_mem[i]);
-    snake_whole_parts[i].style.setProperty("--y", y_mem[i]);
+function movement_body() {
+  for (j in snake_whole_parts) {
+    for (i = 0; i < x_save.length; i++) {
+      u = i - j;
+      snake_whole_parts[j].style.setProperty("--x", x_save[u]);
+      snake_whole_parts[j].style.setProperty("--y", y_save[u]);
+      if (x_save.length > snake_whole_parts.length + 1) {
+        snake_whole_parts[j].style.setProperty("--x", x_save.shift());
+        snake_whole_parts[j].style.setProperty("--y", y_save.shift());
+      }
+    }
   }
 }
 
-class Steps {
-  constructor(part_of_body, x, y) {}
-}
 //   document.getElementsByClassName("body");
 //   for (i in snake_whole_parts) {
 //     snake_whole_parts[i].style.setProperty(
