@@ -37,17 +37,11 @@ let y_past = 0;
 let right_butt_click = 0;
 let left_butt_click = 0;
 let direction = 2;
-// let x_mem = [];
-// let y_mem = [];
 let x_save = [];
 let y_save = [];
 // *** end main script
 
 function create_game_field(n, color) {
-  //Разобраться с тем как захерачить размер
-  // document
-  //  .getElementById("snake_game_field")
-  //  .setAttribute("grid-template-columns", `repeat(${n}, 1fr)`);
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
       let field_cube = document.createElement("div");
@@ -128,7 +122,6 @@ function show_aim_cube_and_start() {
   x_coord = x;
   y_coprd = y;
   if (score === 0) {
-    // score++;
     return change_color(coordinate);
   } else change_color_to_grey(old_cord);
   score++;
@@ -190,8 +183,6 @@ function death_from_body() {
 }
 
 function create_snake_body(i, x_, y_) {
-  // console.log(x_);
-
   body = document.createElement("div");
   body.setAttribute("id", i);
   body.setAttribute("class", "body");
@@ -214,254 +205,3 @@ function movement_body() {
     }
   }
 }
-
-//   document.getElementsByClassName("body");
-//   for (i in snake_whole_parts) {
-//     snake_whole_parts[i].style.setProperty(
-//       "--x",
-//       snake.style.getPropertyValue("--x")
-//     );
-//     snake_whole_parts[i].style.setProperty(
-//       "--y",
-//       snake.style.getPropertyValue("--y")
-//     );
-//     game_field.appendChild(snake_whole_parts[i]);
-//     console.log(
-//       "movement_body x" +
-//         " " +
-//         snake_whole_parts[i].style.getPropertyValue("--x")
-//     );
-//     console.log(
-//       "movement_body y" +
-//         " " +
-//         snake_whole_parts[i].style.getPropertyValue("--y")
-//     );
-//   }
-// }
-//
-//
-//
-//
-//
-// function sravn() {
-//   if (right_butt_click === 0) {
-//     right_butt_click++;
-//   }
-//   if (x_current_loca > x_past) {
-//     left_butt_click = 4;
-//     right_butt_click = 2;
-//     console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//     console.log(`+x ${x_past} ${x_current_loca}`);
-//     console.log("_________________________________");
-//     console.log(`+y ${y_past} ${y_current_loca}`);
-//     console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//   } else if (y_current_loca > y_past) {
-//     left_butt_click = 1;
-//     right_butt_click = 3;
-//     console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//     console.log(`+x ${x_past} ${x_current_loca}`);
-//     console.log("_________________________________");
-//     console.log(`+y ${y_past} ${y_current_loca}`);
-//     console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//   } else if (x_past > x_current_loca) {
-//     left_butt_click = 2;
-//     right_butt_click = 4;
-//     console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//     console.log(`+x ${x_past} ${x_current_loca}`);
-//     console.log("_________________________________");
-//     console.log(`+y ${y_past} ${y_current_loca}`);
-//     console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//     // console.log(`x ${x_past}`);
-//     // console.log(`x current ${snake.style.getPropertyValue("--x")}`);
-//   } else if (y_past > y_current_loca) {
-//     left_butt_click = 3;
-//     right_butt_click = 1;
-//     console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//     console.log(`+x ${x_past} ${x_current_loca}`);
-//     console.log("_________________________________");
-//     console.log(`+y ${y_past} ${y_current_loca}`);
-//     console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-//   }
-// }
-
-// function what_to_do(numb_from_botton) {
-//   clearTimeout(timer);
-//   sravn();
-
-//   // console.log("left" + " " + left_butt_click);
-//   // console.log("rigth" + " " + right_butt_click);
-//   if (numb_from_botton === 0) {
-//     show_aim_cube_and_start();
-//     movement_x();
-//   } else if (numb_from_botton === 1) {
-//     // right_butt_click++;
-//     if (x_current_loca === 0) {
-//     }
-//     if (right_butt_click === 1) {
-//       movement_x(1);
-//     } else if (right_butt_click === 2) {
-//       movement_y(1);
-//     } else if (right_butt_click === 3) {
-//       back_movement_x(1);
-//     } else if (right_butt_click === 4) {
-//       back_movement_y(1);
-//     } else if (right_butt_click > 4) {
-//       right_butt_click = 0;
-//       return what_to_do(1);
-//     }
-//     //
-//   } else if (numb_from_botton === 2) {
-//     // left_butt_click++;
-
-//     if (left_butt_click === 1) {
-//       movement_x(2);
-//     } else if (left_butt_click === 2) {
-//       movement_y(2);
-//     } else if (left_butt_click === 3) {
-//       back_movement_x(2);
-//     } else if (left_butt_click === 4) {
-//       back_movement_y(2);
-//     } else if (left_butt_click > 4) {
-//       left_butt_click = 0;
-//       return what_to_do(2);
-//     }
-//   }
-//   x_past = snake.style.getPropertyValue("--x");
-//   y_past = snake.style.getPropertyValue("--y");
-//   snake.style.setProperty("--x", x_past);
-//   snake.style.setProperty("--y", y_past);
-// }
-
-// function movement_x(button) {
-//   if (button === 1) {
-//     x_past = snake.style.getPropertyValue("--x");
-//     if (right_butt_click === 1 && x_current_loca <= 19) {
-//       for (i = 0; i < 1; i++) {
-//         move = x_current_loca + 1;
-//         take_a_cube();
-//         snake.style.setProperty("--x", move);
-//         x_current_loca = move;
-//       }
-//       timer = setTimeout(movement_x, 400, 1);
-//       // setTimeout(() => {
-//       //   movement_x(1);
-//       // }, 400);
-//     } else {
-//     }
-//   } else if (button === 2) {
-//     if (left_butt_click === 1 && x_current_loca <= 19) {
-//       for (i = 0; i < 1; i++) {
-//         move = x_current_loca + 1;
-//         take_a_cube();
-//         snake.style.setProperty("--x", move);
-//         x_current_loca = move;
-//       }
-//       timer = setTimeout(movement_x, 400, 2);
-//       // setTimeout(() => {
-//       //   movement_x(2);
-//       // }, 400);
-//     }
-//   }
-// }
-
-// function back_movement_x(button) {
-//   if (button === 1) {
-//     if (right_butt_click === 3 && x_current_loca >= 0) {
-//       x_past = snake.style.getPropertyValue("--x");
-//       for (i = 0; i < 1; i++) {
-//         move = x_current_loca - 1;
-//         take_a_cube();
-//         snake.style.setProperty("--x", move);
-//         x_current_loca = move;
-//       }
-//     }
-//     timer = setTimeout(back_movement_x, 400, 1);
-//     // setTimeout(() => {
-//     //   back_movement_x(1);
-//     // }, 400);
-//   } else if (button === 2) {
-//     if (left_butt_click === 3 && x_current_loca >= 0) {
-//       x_past = snake.style.getPropertyValue("--x");
-//       for (i = 0; i < 1; i++) {
-//         move = x_current_loca - 1;
-//         take_a_cube();
-//         snake.style.setProperty("--x", move);
-//         x_current_loca = move;
-//       }
-//       timer = setTimeout(back_movement_x, 400, 2);
-//       // setTimeout(() => {
-//       //   back_movement_x(2);
-//       // }, 400);
-//     }
-//   }
-// }
-
-// function movement_y(button) {
-//   if (button === 1) {
-//     if (right_butt_click === 2 && y_current_loca <= 19) {
-//       y_past = snake.style.getPropertyValue("--y");
-//       for (i = 0; i < 1; i++) {
-//         move = y_current_loca + 1;
-//         take_a_cube();
-//         snake.style.setProperty("--y", move);
-//         y_current_loca = move;
-//       }
-//       timer = setTimeout(movement_y, 400, 1);
-//       // setTimeout(() => {
-//       //   movement_y(1);
-//       // }, 400);
-//     }
-//   } else if (button === 2) {
-//     if (left_butt_click === 2 && y_current_loca <= 19) {
-//       y_past = snake.style.getPropertyValue("--y");
-//       for (i = 0; i < 1; i++) {
-//         move = y_current_loca + 1;
-//         take_a_cube();
-//         snake.style.setProperty("--y", move);
-//         y_current_loca = move;
-//       }
-//       timer = setTimeout(movement_y, 400, 2);
-//       // setTimeout(() => {
-//       //   movement_y(2);
-//       // }, 400);
-//     }
-//   }
-// }
-
-// function back_movement_y(button) {
-//   if (button === 1) {
-//     if (right_butt_click === 4 && y_current_loca >= 0) {
-//       y_past = snake.style.getPropertyValue("--y");
-//       for (i = 0; i < 1; i++) {
-//         move = y_current_loca - 1;
-//         take_a_cube();
-//         snake.style.setProperty("--y", move);
-//         y_current_loca = move;
-//       }
-//     }
-//     timer = setTimeout(back_movement_y, 400, 1);
-//     // setTimeout(() => {
-//     //   back_movement_y(1);
-//     // }, 400);
-//   } else if (button === 2) {
-//     if (left_butt_click === 4 && y_current_loca >= 0) {
-//       y_past = snake.style.getPropertyValue("--y");
-//       for (i = 0; i < 1; i++) {
-//         move = y_current_loca - 1;
-//         take_a_cube();
-//         snake.style.setProperty("--y", move);
-//         y_current_loca = move;
-//       }
-//     }
-//     timer = setTimeout(back_movement_y, 400, 2);
-//     // setTimeout(() => {
-//     //   back_movement_y(2);
-//     // }, 400);
-//   }
-// }
-
-// // total width: 22px;
-// // total height: 22px;
-// // gap: 1px;
-
-// // search the cell
