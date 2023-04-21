@@ -76,3 +76,7 @@ button{
   top: calc(21px* ( 0 + var(--y) ) );
   left: calc(21px* ( 0 + var(--x) ) );
 }
+
+.score{
+  background-color: beige;
+}

@@ -28,7 +28,7 @@ head.setAttribute("id", "i_am_boss");
 head.setAttribute("class", "head");
 game_field.appendChild(head);
 const snake = document.getElementById("i_am_boss");
-// snake_whole_parts.push(snake);
+const score_id = document.getElementById("score_div");
 
 let x_current_loca = 0;
 let y_current_loca = 0;
@@ -93,7 +93,8 @@ function move(d) {
     change_direction = direction_queue.shift();
     d = (d + change_direction + 4) % 4;
   }
-  timer = setTimeout(move, 200, d);
+  console.log(score);
+  change_speed(d);
   death_condition(20);
   death_from_body();
 }
@@ -135,7 +136,7 @@ function take_a_cube() {
   ) {
     score++;
     create_snake_body(
-      // создаю тело и помущаю в него х и у
+      // создаю тело и помещаю в него х и у
       score,
       snake.style.getPropertyValue("--x"),
       snake.style.getPropertyValue("--y")
@@ -146,38 +147,36 @@ function take_a_cube() {
     x_save.push(snake.style.getPropertyValue("--x"));
     y_save.push(snake.style.getPropertyValue("--y"));
   }
+  show_score();
 }
 
 function death_condition(n) {
   if (snake.style.getPropertyValue("--x") < 0) {
     clearTimeout(timer);
     snake.style.setProperty("--x", 0);
-    return console.log("You lose");
+    return alert("You lose");
   } else if (snake.style.getPropertyValue("--x") >= n) {
     clearTimeout(timer);
     snake.style.setProperty("--x", n - 1);
-    return console.log("You lose");
+    return alert("You lose");
   } else if (snake.style.getPropertyValue("--y") < 0) {
     clearTimeout(timer);
     snake.style.setProperty("--y", 0);
-    return console.log("You lose");
+    return alert("You lose");
   } else if (snake.style.getPropertyValue("--y") >= n) {
     clearTimeout(timer);
     snake.style.setProperty("--y", n - 1);
-    return console.log("You lose");
+    return alert("You lose");
   }
 }
 function death_from_body() {
   for (i = 1; i < x_save.length - 1; i++) {
-    console.log(x_save[i]);
     if (
       snake.style.getPropertyValue("--x") === x_save[i] &&
       snake.style.getPropertyValue("--y") === y_save[i]
     ) {
-      console.log(snake.style.getPropertyValue("--x") + " === " + x_save[i]);
-      console.log(snake.style.getPropertyValue("--y") + " === " + y_save[i]);
       clearTimeout(timer);
-      return console.log("You lose!!!!!!!!!!!!!");
+      return alert("You lose!");
     }
   }
 }
@@ -204,4 +203,10 @@ function movement_body() {
       }
     }
   }
+}
+function show_score() {
+  score_id.innerHTML = `Your score: ${snake_whole_parts.length}`;
+}
+function change_speed(d) {
+  timer = setTimeout(move, 400 - snake_whole_parts.length * 3, d);
 }
