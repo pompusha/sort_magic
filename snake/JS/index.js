@@ -205,8 +205,33 @@ function movement_body() {
   }
 }
 function show_score() {
+  let a = `Your score: ${snake_whole_parts.length}`;
   score_id.innerHTML = `Your score: ${snake_whole_parts.length}`;
+  // let b = a.split(" ");
+  // for (i = 0; i < b.length; i++) {
+  //   let splited_word = b[i].split("");
+
+  //   for (i = 0; i < splited_word; i++) {
+  //     console.log(i);
+  //   }
+  // }
+
+  // console.log(b);
 }
+
 function change_speed(d) {
   timer = setTimeout(move, 400 - snake_whole_parts.length * 3, d);
 }
+
+// let key = event.key;
+document.addEventListener("keyup", function (key) {
+  if (key.key == "ArrowLeft") {
+    console.log("L");
+    left_click();
+  } else if (key.key == "ArrowRight") {
+    console.log("R");
+    right_click();
+  } else if (key.key == " ") {
+    start_game();
+  }
+});
