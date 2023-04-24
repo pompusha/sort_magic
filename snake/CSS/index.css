@@ -65,6 +65,7 @@ button{
   /* left: 21px;  default param value*/
   border: 1px solid black;
   transition: 0.1s;
+  z-index: 9;
 }
 .body{
   position: absolute;

@@ -13,7 +13,7 @@ let x_coord = null;
 let y_coprd = null;
 var timer;
 
-const snake_whole_parts = [];
+let snake_whole_parts = [];
 coordinate_of_id = [];
 for (i in letters) {
   for (key in numbers) {
@@ -22,20 +22,25 @@ for (i in letters) {
 }
 
 create_game_field(20, "#DFFED9");
+create_snake_head();
 
-head = document.createElement("div");
-head.setAttribute("id", "i_am_boss");
-head.setAttribute("class", "head");
-game_field.appendChild(head);
 const snake = document.getElementById("i_am_boss");
 const score_id = document.getElementById("score_div");
 
-let x_current_loca = 0;
-let y_current_loca = 0;
-let x_past = 0;
-let y_past = 0;
-let right_butt_click = 0;
-let left_butt_click = 0;
+function create_snake_head() {
+  head = document.createElement("div");
+  head.setAttribute("id", "i_am_boss");
+  head.setAttribute("class", "head");
+  head.style.backgroundColor = "white";
+  game_field.appendChild(head);
+}
+
+// let x_current_loca = 0;
+// let y_current_loca = 0;
+// let x_past = 0;
+// let y_past = 0;
+// let right_butt_click = 0;
+// let left_butt_click = 0;
 let direction = 2;
 let x_save = [];
 let y_save = [];
@@ -82,10 +87,9 @@ function move(d) {
       y--;
       break;
   }
-
   y = snake.style.setProperty("--y", y);
   x = snake.style.setProperty("--x", x);
-
+  // console.log(snake.style.getPropertyValue("--x"));
   movement_body();
   take_a_cube();
 
@@ -93,13 +97,15 @@ function move(d) {
     change_direction = direction_queue.shift();
     d = (d + change_direction + 4) % 4;
   }
-  console.log(score);
   change_speed(d);
   death_condition(20);
   death_from_body();
 }
 
 function start_game() {
+  snake.style.setProperty("--x", -1);
+  snake.style.setProperty("--y", 0);
+  clean_field();
   clearTimeout(timer);
   show_aim_cube_and_start();
 
@@ -125,7 +131,7 @@ function show_aim_cube_and_start() {
   if (score === 0) {
     return change_color(coordinate);
   } else change_color_to_grey(old_cord);
-  score++;
+  // score++;
   change_color(coordinate);
 }
 
@@ -153,20 +159,24 @@ function take_a_cube() {
 function death_condition(n) {
   if (snake.style.getPropertyValue("--x") < 0) {
     clearTimeout(timer);
-    snake.style.setProperty("--x", 0);
-    return alert("You lose");
+    snake.style.setProperty("--x", n - 1);
+    alert_death();
+    create_game_field();
   } else if (snake.style.getPropertyValue("--x") >= n) {
     clearTimeout(timer);
     snake.style.setProperty("--x", n - 1);
-    return alert("You lose");
+    alert_death();
+    create_game_field();
   } else if (snake.style.getPropertyValue("--y") < 0) {
     clearTimeout(timer);
     snake.style.setProperty("--y", 0);
-    return alert("You lose");
+    alert_death();
+    create_game_field();
   } else if (snake.style.getPropertyValue("--y") >= n) {
     clearTimeout(timer);
     snake.style.setProperty("--y", n - 1);
-    return alert("You lose");
+    alert_death();
+    create_game_field();
   }
 }
 function death_from_body() {
@@ -176,8 +186,38 @@ function death_from_body() {
       snake.style.getPropertyValue("--y") === y_save[i]
     ) {
       clearTimeout(timer);
-      return alert("You lose!");
+      alert_death();
     }
+  }
+}
+function alert_death() {
+  alert("You lose");
+  snake.style.setProperty("--x", 0);
+  snake.style.setProperty("--y", 0);
+  clean_field();
+}
+
+function clean_field() {
+  score = 0;
+
+  x_save = [];
+  y_save = [];
+  snake_whole_parts = [];
+  direction_queue = [];
+
+  field = document.getElementsByClassName("class1");
+  for (i = 0; i < field.length; i++) {
+    console.log(field[i].style.backgroundColor);
+    if (
+      field[i].style.backgroundColor === "grey" ||
+      field[i].style.backgroundColor === "red"
+    ) {
+      field[i].style.backgroundColor = "#DFFED9";
+    }
+  }
+  body = document.getElementsByClassName("body");
+  while (body[0]) {
+    game_field.removeChild(body[0]);
   }
 }
 
@@ -192,6 +232,7 @@ function create_snake_body(i, x_, y_) {
 }
 
 function movement_body() {
+  console.log(snake_whole_parts);
   for (j in snake_whole_parts) {
     for (i = 0; i < x_save.length; i++) {
       u = i - j;
@@ -207,16 +248,6 @@ function movement_body() {
 function show_score() {
   let a = `Your score: ${snake_whole_parts.length}`;
   score_id.innerHTML = `Your score: ${snake_whole_parts.length}`;
-  // let b = a.split(" ");
-  // for (i = 0; i < b.length; i++) {
-  //   let splited_word = b[i].split("");
-
-  //   for (i = 0; i < splited_word; i++) {
-  //     console.log(i);
-  //   }
-  // }
-
-  // console.log(b);
 }
 
 function change_speed(d) {
@@ -226,10 +257,8 @@ function change_speed(d) {
 // let key = event.key;
 document.addEventListener("keyup", function (key) {
   if (key.key == "ArrowLeft") {
-    console.log("L");
     left_click();
   } else if (key.key == "ArrowRight") {
-    console.log("R");
     right_click();
   } else if (key.key == " ") {
     start_game();
