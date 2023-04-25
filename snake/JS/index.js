@@ -252,13 +252,14 @@ function show_score() {
 
 function change_speed(d) {
   timer = setTimeout(move, 400 - snake_whole_parts.length * 3, d);
+  let speed_div = document.getElementById("speed_div");
+  speed_div.innerHTML = `Speed: ${400 - snake_whole_parts.length * 3}`;
 }
 
-// let key = event.key;
 document.addEventListener("keyup", function (key) {
-  if (key.key == "ArrowLeft") {
+  if (key.key == "ArrowLeft" || key.key == "a" || key.key == "ф") {
     left_click();
-  } else if (key.key == "ArrowRight") {
+  } else if (key.key == "ArrowRight" || key.key == "d" || key.key == "в") {
     right_click();
   } else if (key.key == " ") {
     start_game();

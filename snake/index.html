@@ -11,11 +11,27 @@
     <div class="sourcediv" id="source_div">
       <div class="snake_whole_field" id="snake_whoal_field">
         <div class="snake_game_field_class" id="snake_game_field"></div>
-        <div class="snake_button_field" id="snake_button_field">
-          <button type="button" onclick="start_game()" value="">Play</button>
-          <button type="button" onclick="left_click()">left</button>
-          <button type="button" onclick="right_click(1)">right</button>
+        <div class="support_field" id="supp_field">
           <div class="score" id="score_div">Your score: 0</div>
+          <div class="speed" id="speed_div">Your speed: 0</div>
+          <div class="pause" id="speed_div">Pause</div>
+        </div>
+        <div class="snake_button_field" id="snake_button_field">
+          <button
+            class="but_start"
+            type="button"
+            onclick="start_game()"
+            value=""
+          >
+            Play
+          </button>
+          <button class="but_left" type="button" onclick="left_click()">
+            left
+          </button>
+          <button class="but_right" type="button" onclick="right_click(1)">
+            right
+          </button>
+          <!-- <div class="score" id="score_div">Your score: 0</div> -->
         </div>
       </div>
     </div>
