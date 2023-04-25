@@ -1,8 +1,10 @@
 *{
-  box-sizing: border-box
-  ;background-color: antiquewhite;
+  box-sizing: border-box;
+  background-color: antiquewhite;
   margin: 0;
   padding: 0;
+  font-family: 'Goldman', cursive;
+  font-size: 15px;
 }
 body{
   margin-top: 20px;
@@ -30,30 +32,86 @@ body{
   background-color: rgb(116, 222, 222);
 }
 
+/*  */
+.snake_game_field_class{
+  border-radius: 6px;
+  border: black solid 2px;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  display: grid;
+  gap: 1px;
+  grid-auto-flow: row;
+  background-color: black;
+  grid-template-columns: repeat(20, 1fr);
+  position: relative;
+  margin-bottom: 5px;
+  
+}
 
+/* js  */
+
+.class1{
+  width: 20px;
+  height: 20px;
+  border-top-right-radius : 0px;
+}
+
+.head{
+  --x:0;
+  --y:0;
+  
+  border-radius: 1px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: aqua;
+  top: calc(21px* ( 0 + var(--y) ) );
+  left: calc(21px* ( 0 + var(--x) ) );
+  /* left: 21px;  default param value*/
+  border: 1px solid black;
+  transition: 0.1s;
+  z-index: 9;
+}
+.body{
+  position: absolute;
+  
+  
+  width: 20px;
+  height: 20px;
+  background-color: aqua;
+  top: calc(21px* ( 0 + var(--y) ) );
+  left: calc(21px* ( 0 + var(--x) ) );
+}
 
 
 /* support_field */
 .support_field{
   position: relative;
   width: auto;
-  height: 20px;
+  min-height: 22px;
+  height: auto;
   /* background-color: rgb(242, 191, 191); */
   margin-bottom: 5px;
+  background-color: brown;
 }
 
 .score{
+  height: fit-content;
   top: 2px;
   left: 166px;
   position: absolute;
+  
   /* background-color: rgb(236, 236, 78); */
 }
 .speed{
+  height: fit-content;
   position: absolute;
   top: 2px;
   left: 15px;
 }
 .pause{
+  height: fit-content;
   position: absolute;
   top: 2px;
   right: 15px;
@@ -105,55 +163,5 @@ button{
   right: 50px;
 }
 
-/*  */
-.snake_game_field_class{
-  border-radius: 6px;
-  border: black solid 2px;
-  width: fit-content;
-  height: fit-content;
-  margin: 0 auto;
-  display: grid;
-  gap: 1px;
-  grid-auto-flow: row;
-  background-color: black;
-  grid-template-columns: repeat(20, 1fr);
-  position: relative;
-  margin-bottom: 0px;
-  
-}
 
-/* js  */
-
-.class1{
-  width: 20px;
-  height: 20px;
-  border-top-right-radius : 0px;
-}
-
-.head{
-  --x:0;
-  --y:0;
-  
-  border-radius: 5px;
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: aqua;
-  top: calc(21px* ( 0 + var(--y) ) );
-  left: calc(21px* ( 0 + var(--x) ) );
-  /* left: 21px;  default param value*/
-  border: 1px solid black;
-  transition: 0.1s;
-  z-index: 9;
-}
-.body{
-  position: absolute;
-  
-  
-  width: 20px;
-  height: 20px;
-  background-color: aqua;
-  top: calc(21px* ( 0 + var(--y) ) );
-  left: calc(21px* ( 0 + var(--x) ) );
-}
 
