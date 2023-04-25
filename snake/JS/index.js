@@ -127,6 +127,9 @@ function change_color_to_grey(past_cord) {
 function show_aim_cube_and_start() {
   let x = Math.floor(Math.random() * 19);
   let y = Math.floor(Math.random() * 19);
+  if (x_save.find((el) => el === x) && y_save.find((el) => el === y)) {
+    show_aim_cube_and_start();
+  }
   let coordinate = `${y}:${x}`;
   x_coord = x;
   y_coprd = y;
@@ -194,6 +197,7 @@ function death_from_body() {
 }
 function alert_death() {
   alert("You lose");
+  sound();
   snake.style.setProperty("--x", 0);
   snake.style.setProperty("--y", 0);
   clean_field();
@@ -209,7 +213,6 @@ function clean_field() {
 
   field = document.getElementsByClassName("class1");
   for (i = 0; i < field.length; i++) {
-    console.log(field[i].style.backgroundColor);
     if (
       field[i].style.backgroundColor === "grey" ||
       field[i].style.backgroundColor === "red"
@@ -234,7 +237,6 @@ function create_snake_body(i, x_, y_) {
 }
 
 function movement_body() {
-  console.log(snake_whole_parts);
   for (j in snake_whole_parts) {
     for (i = 0; i < x_save.length; i++) {
       u = i - j;
@@ -257,7 +259,6 @@ function change_speed(d) {
   let speed_div = document.getElementById("speed_div");
   speed_div.innerHTML = `Speed: ${400 - snake_whole_parts.length * 3}`;
 }
-
 document.addEventListener("keyup", function (key) {
   if (key.key == "ArrowLeft" || key.key == "a" || key.key == "ф") {
     left_click();
@@ -288,4 +289,9 @@ function change_radius_whole_angle() {
       field_divs[i].style.borderBottomRightRadius = "3px";
     }
   }
+}
+// mySound = new sound("  ");
+function sound() {
+  myAudio = document.getElementById("audio_play");
+  myAudio.play();
 }
