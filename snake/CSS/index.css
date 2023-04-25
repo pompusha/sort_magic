@@ -9,8 +9,9 @@ body{
 }
 
 .sourcediv{
+  border-radius: 20px;
   margin: 0 auto;
-  padding-top: 10px;
+  padding-top: 5px;
   border: black solid 1px;
   width: 500px;
   height: 650px;
@@ -20,7 +21,7 @@ body{
 }
 
 .snake_whole_field{
-  
+  border-radius: 20px;
   border: black solid 1px;
   width: 490px;
   height: 630px;
@@ -28,20 +29,11 @@ body{
   padding: 33px;
   background-color: rgb(116, 222, 222);
 }
-/*  */
-.snake_game_field_class{
-  border: black solid 2px;
-  width: fit-content;
-  height: fit-content;
-  margin: 0 auto;
-  display: grid;
-  gap: 1px;
-  grid-auto-flow: row;
-  background-color: black;
-  grid-template-columns: repeat(20, 1fr);
-  position: relative;
-  margin-bottom: 0px;
-}
+
+
+
+
+/* support_field */
 .support_field{
   position: relative;
   width: auto;
@@ -113,11 +105,29 @@ button{
   right: 50px;
 }
 
+/*  */
+.snake_game_field_class{
+  border-radius: 6px;
+  border: black solid 2px;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  display: grid;
+  gap: 1px;
+  grid-auto-flow: row;
+  background-color: black;
+  grid-template-columns: repeat(20, 1fr);
+  position: relative;
+  margin-bottom: 0px;
+  
+}
+
 /* js  */
 
 .class1{
   width: 20px;
   height: 20px;
+  border-top-right-radius : 0px;
 }
 
 .head{

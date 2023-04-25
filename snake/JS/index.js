@@ -53,10 +53,12 @@ function create_game_field(n, color) {
       field_cube.setAttribute("class", "class" + 1);
       field_cube.style.backgroundColor = color;
       field_cube.style.display = "grid";
+
       field_cube.setAttribute("id", coordinate_of_id[i * n + j]);
       game_field.appendChild(field_cube);
     }
   }
+  change_radius_whole_angle();
 }
 
 let direction_queue = [];
@@ -265,3 +267,25 @@ document.addEventListener("keyup", function (key) {
     start_game();
   }
 });
+
+function change_radius_whole_angle() {
+  f_elem = document.querySelector(".class1");
+  f_elem.style.borderTopLeftRadius = "3px";
+
+  field_divs = document.getElementsByClassName("class1");
+  // console.log(letters[letters.letters - 1]);
+  for (i = 0; i < field_divs.length; i++) {
+    if (field_divs[i].id == `${numbers[0]}:${letters[letters.length - 1]}`) {
+      field_divs[i].style.borderTopRightRadius = "3px";
+    } else if (
+      field_divs[i].id == `${numbers[numbers.length - 1]}:${letters[0]}`
+    ) {
+      field_divs[i].style.borderBottomLeftRadius = "3px";
+    } else if (
+      field_divs[i].id ==
+      `${numbers[numbers.length - 1]}:${letters[letters.length - 1]}`
+    ) {
+      field_divs[i].style.borderBottomRightRadius = "3px";
+    }
+  }
+}
