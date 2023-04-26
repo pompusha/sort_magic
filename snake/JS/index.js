@@ -109,8 +109,6 @@ function move(d) {
 }
 
 function start_game() {
-  start_check = true;
-  console.log(start_check);
   snake.style.setProperty("--x", -1);
   snake.style.setProperty("--y", 0);
   clean_field();
@@ -303,7 +301,6 @@ function sound() {
 }
 
 function press_pause(p) {
-  console.log(`start_check ${start_check}`);
   if (start_check === false) {
     return;
   } else {
