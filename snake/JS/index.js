@@ -13,6 +13,7 @@ let x_coord = null;
 let y_coprd = null;
 var timer;
 let pause = true;
+let start_check = false;
 const pause_text = document.getElementById("pause_div");
 var pauseInterval;
 
@@ -108,12 +109,14 @@ function move(d) {
 }
 
 function start_game() {
+  start_check = true;
+  console.log(start_check);
   snake.style.setProperty("--x", -1);
   snake.style.setProperty("--y", 0);
   clean_field();
   clearTimeout(timer);
   show_aim_cube_and_start();
-
+  start_check = true;
   move(direction);
 }
 
@@ -214,7 +217,7 @@ function clean_field() {
   y_save = [];
   snake_whole_parts = [];
   direction_queue = [];
-
+  start_check = false;
   field = document.getElementsByClassName("class1");
   for (i = 0; i < field.length; i++) {
     if (field[i].style.backgroundColor === "red") {
@@ -252,7 +255,7 @@ function movement_body() {
 }
 
 function show_score() {
-  let a = `Your score: ${snake_whole_parts.length}`;
+  // let a = `Your score: ${snake_whole_parts.length}`;
   score_id.innerHTML = `Your score: ${snake_whole_parts.length}`;
 }
 
@@ -270,7 +273,6 @@ document.addEventListener("keyup", function (key) {
     start_game();
   } else if (key.key == "e") {
     press_pause(pause);
-    console.log("e");
   }
 });
 
@@ -302,25 +304,25 @@ function sound() {
 }
 
 function press_pause(p) {
-  console.log(`direction ${direction}`);
-
-  if (p === true) {
-    pause = false;
-
-    console.log(pause);
-    clearTimeout(timer);
-
-    if (pause === false) {
-      pauseInterval = setInterval(function () {
-        pause_text.style.visibility =
-          pause_text.style.visibility == "visible" ? "" : "visible";
-      }, 1000);
+  console.log(`start_check ${start_check}`);
+  if (start_check === false) {
+    return;
+  } else {
+    if (p === true) {
+      pause = false;
+      clearTimeout(timer);
+      if (pause === false) {
+        pauseInterval = setInterval(function () {
+          pause_text.style.visibility =
+            pause_text.style.visibility == "visible" ? "" : "visible";
+        }, 1000);
+      }
+    } else if (p === false) {
+      clearInterval(pauseInterval);
+      pause = true;
+      pause_text.style.visibility = "hidden";
+      move(direction);
+      console.log("play");
     }
-  } else if (p === false) {
-    clearInterval(pauseInterval);
-    pause = true;
-    pause_text.style.visibility = "hidden";
-    move(direction);
-    console.log("play");
   }
 }
