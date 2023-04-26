@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="CSS/index.css" />
+    <link rel="shortcut icon" href="#">
   </head>
   <!-- <Font> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +19,7 @@
         <div class="support_field" id="supp_field">
           <div class="score" id="score_div">Your score: 0</div>
           <div class="speed" id="speed_div">Your speed: 0</div>
-          <div class="pause" id="speed_div">Pause</div>
+          <div class="pause" id="pause_div">Pause</div>
         </div>
         <audio id="audio_play" src="/sound/emotional-damage-meme.mp3"></audio>
         <div class="snake_button_field" id="snake_button_field">
@@ -36,6 +37,7 @@
           <button class="but_right" type="button" onclick="right_click(1)">
             right
           </button>
+          <button class="but_pause" id="but_pause" onclick="press_pause(pause)">Pause</button>
 
         </div>
       </div>

@@ -65,7 +65,7 @@ body{
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: aqua;
+  background-color: white;
   top: calc(21px* ( 0 + var(--y) ) );
   left: calc(21px* ( 0 + var(--x) ) );
   /* left: 21px;  default param value*/
@@ -75,11 +75,11 @@ body{
 }
 .body{
   position: absolute;
-  
-  
+  border: 1px solid black;
+  border-radius: 1px;
   width: 20px;
   height: 20px;
-  background-color: aqua;
+  background-color: white;
   top: calc(21px* ( 0 + var(--y) ) );
   left: calc(21px* ( 0 + var(--x) ) );
 }
@@ -118,6 +118,7 @@ body{
   top: 2px;
   right: 15px;
   background-color: rgb(116, 222, 222);
+  visibility: hidden;
 
 }
 
@@ -148,7 +149,7 @@ button{
   width: 70px;
   border-radius: 50px;
   top: 25px;
-  left: 50px;
+  left: 30px;
 }
 .but_left{
   position: absolute;
@@ -156,7 +157,7 @@ button{
   width: 40px;
   border-radius: 20px;
   top: 25px;
-  right: 100px;
+  right: 80px;
 }
 
 .but_right{
@@ -165,8 +166,15 @@ button{
   width: 40px;
   border-radius: 20px;
   top: 60px;
-  right: 50px;
+  right: 30px;
 }
 
-
+.but_pause{
+  position: absolute;
+  min-width: 60px;
+  min-height: 20px;
+  border-radius: 15px;
+  left: 180px;
+  top: 50px;
+}
 

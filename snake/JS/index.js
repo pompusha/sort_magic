@@ -12,6 +12,9 @@ let letters = [
 let x_coord = null;
 let y_coprd = null;
 var timer;
+let pause = true;
+const pause_text = document.getElementById("pause_div");
+var pauseInterval;
 
 let snake_whole_parts = [];
 coordinate_of_id = [];
@@ -20,8 +23,7 @@ for (i in letters) {
     coordinate_of_id.push(`${letters[i]}:${numbers[key]}`);
   }
 }
-
-create_game_field(20, "#DFFED9");
+create_game_field(20, "#679267");
 create_snake_head();
 
 const snake = document.getElementById("i_am_boss");
@@ -35,16 +37,9 @@ function create_snake_head() {
   game_field.appendChild(head);
 }
 
-// let x_current_loca = 0;
-// let y_current_loca = 0;
-// let x_past = 0;
-// let y_past = 0;
-// let right_butt_click = 0;
-// let left_butt_click = 0;
 let direction = 2;
 let x_save = [];
 let y_save = [];
-// *** end main script
 
 function create_game_field(n, color) {
   for (i = 0; i < n; i++) {
@@ -65,10 +60,18 @@ let direction_queue = [];
 
 function left_click() {
   direction_queue.push(1);
+  clean_queue();
 }
 
 function right_click() {
   direction_queue.push(-1);
+  clean_queue();
+}
+
+function clean_queue() {
+  if (direction_queue.length > 2) {
+    direction_queue.splice(0, direction_queue.length - 1);
+  }
 }
 
 function move(d) {
@@ -91,13 +94,13 @@ function move(d) {
   }
   y = snake.style.setProperty("--y", y);
   x = snake.style.setProperty("--x", x);
-  // console.log(snake.style.getPropertyValue("--x"));
   movement_body();
   take_a_cube();
 
   if (direction_queue.length > 0) {
     change_direction = direction_queue.shift();
     d = (d + change_direction + 4) % 4;
+    direction = d;
   }
   change_speed(d);
   death_condition(20);
@@ -114,20 +117,20 @@ function start_game() {
   move(direction);
 }
 
-//
 function change_color(coord) {
   old_cord = coord;
   document.getElementById(coord).style.backgroundColor = "red";
 }
 
 function change_color_to_grey(past_cord) {
-  document.getElementById(past_cord).style.backgroundColor = "grey";
+  document.getElementById(past_cord).style.backgroundColor = "#679267";
 }
 
 function show_aim_cube_and_start() {
   let x = Math.floor(Math.random() * 19);
   let y = Math.floor(Math.random() * 19);
-  if (x_save.find((el) => el === x) && y_save.find((el) => el === y)) {
+  if (x_save.find((el) => el == x) && y_save.find((el) => el == y)) {
+    console.log(`coordinate = ${y}:${x}`);
     show_aim_cube_and_start();
   }
   let coordinate = `${y}:${x}`;
@@ -136,7 +139,6 @@ function show_aim_cube_and_start() {
   if (score === 0) {
     return change_color(coordinate);
   } else change_color_to_grey(old_cord);
-  // score++;
   change_color(coordinate);
 }
 
@@ -184,6 +186,7 @@ function death_condition(n) {
     create_game_field();
   }
 }
+
 function death_from_body() {
   for (i = 1; i < x_save.length - 1; i++) {
     if (
@@ -195,17 +198,18 @@ function death_from_body() {
     }
   }
 }
+
 function alert_death() {
   alert("You lose");
   sound();
   snake.style.setProperty("--x", 0);
   snake.style.setProperty("--y", 0);
+  direction = 2;
   clean_field();
 }
 
 function clean_field() {
   score = 0;
-
   x_save = [];
   y_save = [];
   snake_whole_parts = [];
@@ -213,11 +217,8 @@ function clean_field() {
 
   field = document.getElementsByClassName("class1");
   for (i = 0; i < field.length; i++) {
-    if (
-      field[i].style.backgroundColor === "grey" ||
-      field[i].style.backgroundColor === "red"
-    ) {
-      field[i].style.backgroundColor = "#DFFED9";
+    if (field[i].style.backgroundColor === "red") {
+      field[i].style.backgroundColor = "#679267";
     }
   }
   body = document.getElementsByClassName("body");
@@ -249,6 +250,7 @@ function movement_body() {
     }
   }
 }
+
 function show_score() {
   let a = `Your score: ${snake_whole_parts.length}`;
   score_id.innerHTML = `Your score: ${snake_whole_parts.length}`;
@@ -266,6 +268,9 @@ document.addEventListener("keyup", function (key) {
     right_click();
   } else if (key.key == " ") {
     start_game();
+  } else if (key.key == "e") {
+    press_pause(pause);
+    console.log("e");
   }
 });
 
@@ -274,7 +279,6 @@ function change_radius_whole_angle() {
   f_elem.style.borderTopLeftRadius = "3px";
 
   field_divs = document.getElementsByClassName("class1");
-  // console.log(letters[letters.letters - 1]);
   for (i = 0; i < field_divs.length; i++) {
     if (field_divs[i].id == `${numbers[0]}:${letters[letters.length - 1]}`) {
       field_divs[i].style.borderTopRightRadius = "3px";
@@ -290,8 +294,33 @@ function change_radius_whole_angle() {
     }
   }
 }
-// mySound = new sound("  ");
+
 function sound() {
   myAudio = document.getElementById("audio_play");
+  myAudio.volume = 0.5;
   myAudio.play();
+}
+
+function press_pause(p) {
+  console.log(`direction ${direction}`);
+
+  if (p === true) {
+    pause = false;
+
+    console.log(pause);
+    clearTimeout(timer);
+
+    if (pause === false) {
+      pauseInterval = setInterval(function () {
+        pause_text.style.visibility =
+          pause_text.style.visibility == "visible" ? "" : "visible";
+      }, 1000);
+    }
+  } else if (p === false) {
+    clearInterval(pauseInterval);
+    pause = true;
+    pause_text.style.visibility = "hidden";
+    move(direction);
+    console.log("play");
+  }
 }
