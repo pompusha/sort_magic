@@ -255,7 +255,6 @@ function movement_body() {
 }
 
 function show_score() {
-  // let a = `Your score: ${snake_whole_parts.length}`;
   score_id.innerHTML = `Your score: ${snake_whole_parts.length}`;
 }
 
