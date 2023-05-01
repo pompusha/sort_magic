@@ -1,6 +1,14 @@
 const game_field = document.getElementById("snake_game_field");
 
 // *** main script
+
+//Сделать словарь констант:
+const apple_color = "red";
+const field_color = "#679267";
+
+
+let field_size = 20;
+
 let score = 0;
 let old_cord = 0;
 let numbers = [
@@ -18,18 +26,27 @@ let vol = 1;
 const pause_text = document.getElementById("pause_div");
 var pauseInterval;
 
+let direction_queue = [];
+let direction = 2;
+let x_save = [];
+let y_save = [];
+
 let snake_whole_parts = [];
 coordinate_of_id = [];
+
 for (i in letters) {
   for (key in numbers) {
     coordinate_of_id.push(`${letters[i]}:${numbers[key]}`);
   }
 }
-create_game_field(20, "#679267");
+
+create_game_field(20, field_color);
 create_snake_head();
 
 const snake = document.getElementById("i_am_boss");
 const score_id = document.getElementById("score_div");
+
+// *** end main script
 
 function create_snake_head() {
   head = document.createElement("div");
@@ -39,10 +56,6 @@ function create_snake_head() {
   game_field.appendChild(head);
 }
 
-let direction = 2;
-let x_save = [];
-let y_save = [];
-
 function create_game_field(n, color) {
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
@@ -51,36 +64,54 @@ function create_game_field(n, color) {
       field_cube.style.backgroundColor = color;
       field_cube.style.display = "grid";
 
-      field_cube.setAttribute("id", coordinate_of_id[i * n + j]);
+      field_cube.setAttribute("id", `${i}_${j}`);
       game_field.appendChild(field_cube);
     }
   }
-  change_radius_whole_angle();
+  change_radius_all_board_angles(n);
 }
 
-let direction_queue = [];
+function change_radius_all_board_angles(n) {
+  //left_top
+  lt_el = document.getElementById("0_0");
+  lt_el.style.borderTopLeftRadius = "3px";
+
+  //left_top
+  rt_el = document.getElementById(`${n-1}_0`);
+  rt_el.style.borderTopRightRadius = "3px";
+
+  //left_bot
+  rt_el = document.getElementById(`0_${n-1}`);
+  rt_el.style.borderBottomLeftRadius = "3px";
+  
+  //right_bot
+  rt_el = document.getElementById(`${n-1}_${n-1}`);
+  rt_el.style.borderBottomRightRadius = "3px";
+}
 
 function left_click() {
   direction_queue.push(1);
-  clean_queue();
+  trunk_queue();
 }
 
 function right_click() {
   direction_queue.push(-1);
-  clean_queue();
+  trunk_queue();
 }
 
-function clean_queue() {
+function trunk_queue() {
   if (direction_queue.length > 2) {
     direction_queue.splice(0, direction_queue.length - 1);
   }
 }
 
-function move(d) {
+function move(current_direction) {
   y = snake.style.getPropertyValue("--y");
   x = snake.style.getPropertyValue("--x");
 
-  switch (d) {
+  console.log("dir " + current_direction);
+
+  switch (current_direction) {
     case 0:
       x--;
       break;
@@ -101,41 +132,40 @@ function move(d) {
 
   if (direction_queue.length > 0) {
     change_direction = direction_queue.shift();
-    d = (d + change_direction + 4) % 4;
-    direction = d;
+    current_direction = (current_direction + change_direction + 4) % 4;
+    direction = current_direction;
   }
-  change_speed(d);
-  death_condition(20);
+  change_speed(current_direction);
+  death_condition(field_size);
   death_from_body();
 }
 
 function start_game() {
+  clean_field();
   snake.style.setProperty("--x", -1);
   snake.style.setProperty("--y", 0);
-  clean_field();
   clearTimeout(timer);
-  show_aim_cube_and_start();
+  show_aim_cube_and_start(field_size);
   start_check = true;
   move(direction);
 }
 
 function change_color(coord) {
   old_cord = coord;
-  document.getElementById(coord).style.backgroundColor = "red";
+  document.getElementById(coord).style.backgroundColor = apple_color;
 }
 
 function change_color_to_grey(past_cord) {
-  document.getElementById(past_cord).style.backgroundColor = "#679267";
+  document.getElementById(past_cord).style.backgroundColor = field_color;
 }
 
-function show_aim_cube_and_start() {
-  let x = Math.floor(Math.random() * 19);
-  let y = Math.floor(Math.random() * 19);
+function show_aim_cube_and_start(n) {
+  let x = Math.floor(Math.random() * n);
+  let y = Math.floor(Math.random() * n);
   if (x_save.find((el) => el == x) && y_save.find((el) => el == y)) {
-    console.log(`coordinate = ${y}:${x}`);
     show_aim_cube_and_start();
   }
-  let coordinate = `${y}:${x}`;
+  let coordinate = `${y}_${x}`;
   x_coord = x;
   y_coprd = y;
   if (score === 0) {
@@ -201,6 +231,7 @@ function death_from_body() {
   }
 }
 
+//Сделать заставку как в dark souls со звуком
 function alert_death() {
   alert("You lose");
   sound();
@@ -216,11 +247,12 @@ function clean_field() {
   y_save = [];
   snake_whole_parts = [];
   direction_queue = [];
+  direction = 2;
   start_check = false;
   field = document.getElementsByClassName("class1");
   for (i = 0; i < field.length; i++) {
-    if (field[i].style.backgroundColor === "red") {
-      field[i].style.backgroundColor = "#679267";
+    if (field[i].style.backgroundColor === apple_color) {
+      field[i].style.backgroundColor = field_color;
     }
   }
   body = document.getElementsByClassName("body");
@@ -273,27 +305,6 @@ document.addEventListener("keyup", function (key) {
     press_pause(pause);
   }
 });
-
-function change_radius_whole_angle() {
-  f_elem = document.querySelector(".class1");
-  f_elem.style.borderTopLeftRadius = "3px";
-
-  field_divs = document.getElementsByClassName("class1");
-  for (i = 0; i < field_divs.length; i++) {
-    if (field_divs[i].id == `${numbers[0]}:${letters[letters.length - 1]}`) {
-      field_divs[i].style.borderTopRightRadius = "3px";
-    } else if (
-      field_divs[i].id == `${numbers[numbers.length - 1]}:${letters[0]}`
-    ) {
-      field_divs[i].style.borderBottomLeftRadius = "3px";
-    } else if (
-      field_divs[i].id ==
-      `${numbers[numbers.length - 1]}:${letters[letters.length - 1]}`
-    ) {
-      field_divs[i].style.borderBottomRightRadius = "3px";
-    }
-  }
-}
 
 function sound() {
   myAudio = document.getElementById("audio_play");
