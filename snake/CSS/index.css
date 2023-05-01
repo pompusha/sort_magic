@@ -170,3 +170,7 @@ button{
   top: 50px;
 }
 
+.volume{
+  border-radius: 6px;
+  position: absolute;
+}

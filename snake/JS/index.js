@@ -14,6 +14,7 @@ let y_coprd = null;
 var timer;
 let pause = true;
 let start_check = false;
+let vol = 1;
 const pause_text = document.getElementById("pause_div");
 var pauseInterval;
 
@@ -262,11 +263,11 @@ function change_speed(d) {
   speed_div.innerHTML = `Speed: ${400 - snake_whole_parts.length * 3}`;
 }
 document.addEventListener("keyup", function (key) {
-  if (key.key == "ArrowLeft" || key.key == "a" || key.key == "ф") {
+  if (key.key == "ArrowLeft" || key.key === "a" || key.key == "ф") {
     left_click();
   } else if (key.key == "ArrowRight" || key.key == "d" || key.key == "в") {
     right_click();
-  } else if (key.key == " ") {
+  } else if (key.key === "w") {
     start_game();
   } else if (key.key == "e") {
     press_pause(pause);
@@ -296,7 +297,7 @@ function change_radius_whole_angle() {
 
 function sound() {
   myAudio = document.getElementById("audio_play");
-  myAudio.volume = 0.5;
+  myAudio.volume = vol;
   myAudio.play();
 }
 
@@ -320,5 +321,15 @@ function press_pause(p) {
       move(direction);
       console.log("play");
     }
+  }
+}
+
+function switch_off_volume() {
+  if (vol === 1) {
+    vol = 0;
+    console.log(vol);
+  } else {
+    vol = 1;
+    console.log(vol);
   }
 }
