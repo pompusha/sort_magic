@@ -8,6 +8,9 @@
 }
 body{
   margin-top: 20px;
+  width: 500px auto;
+  height: 650px;
+  margin: 0;
 }
 
 .sourcediv{
@@ -15,16 +18,16 @@ body{
   margin: 0 auto;
   padding-top: 5px;
   border: black solid 1px;
-  width: 500px;
-  height: 650px;
+  min-width: 500px;
+  min-height: 650px;
   background-color: rgb(116, 222, 222);
 }
 
 .snake_whole_field{
   border-radius: 20px;
   border: black solid 1px;
-  width: 490px;
-  height: 630px;
+  min-width: 490px;
+  min-height:  630px;
   margin: 0 auto;
   padding: 33px;
   background-color: rgb(116, 222, 222);
@@ -34,14 +37,14 @@ body{
 .snake_game_field_class{
   border-radius: 6px;
   border: black solid 2px;
-  width: fit-content;
+  width: fit-content ;
   height: fit-content;
   margin: 0 auto;
   display: grid;
   gap: 1px;
   grid-auto-flow: row;
   background-color: black;
-  grid-template-columns: repeat(20, 1fr);
+  /* grid-template-columns: repeat(20, 1fr); */
   position: relative;
   margin-bottom: 5px;
   
@@ -71,6 +74,7 @@ body{
   z-index: 9;
 }
 .body{
+  transition: 0.2s;
   position: absolute;
   border: 0.5px solid black;
   border-radius: 1px;
@@ -119,6 +123,7 @@ body{
 
 /* button */
 .snake_button_field {
+  
   width: auto ;
   height: 130px;
   text-align: center;
@@ -174,3 +179,36 @@ button{
   border-radius: 6px;
   position: absolute;
 }
+
+
+.dead_souls{
+  transition: 1s;
+  z-index: -1;
+  position: absolute;
+  top: 35%;
+  left: 20%;
+  font-size: 50px;
+
+  background-color: rgba(0,0, 0, 0);
+  color: rgb(198, 34, 34);
+  text-shadow: -1px 0 white, 0 1px white,
+                1px 0 white, 0 -1px white;
+  text-shadow: 0 0 0.2em DarkOrange, 0 0 0.2em black,
+                0 0 0.2em DarkOrange;
+ 
+}
+/* .dead_souls_visible{
+  transition: 1s;
+  z-index: 1;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  font-size: 50px;
+
+  background-color: rgba(0,0, 0, 0);
+  color: rgb(198, 34, 34);
+  text-shadow: -1px 0 white, 0 1px white,
+                1px 0 white, 0 -1px white;
+  text-shadow: 0 0 0.2em DarkOrange, 0 0 0.2em black,
+                0 0 0.2em DarkOrange;
+} */

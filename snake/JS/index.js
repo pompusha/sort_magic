@@ -6,23 +6,18 @@ const game_field = document.getElementById("snake_game_field");
 const apple_color = "red";
 const field_color = "#679267";
 
-
 let field_size = 20;
 
 let score = 0;
 let old_cord = 0;
-let numbers = [
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-];
-let letters = [
-  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-];
+let x_axis = [];
+let y_axis = [];
 let x_coord = null;
-let y_coprd = null;
+let y_coy_coordrd = null;
 var timer;
 let pause = true;
 let start_check = false;
-let vol = 1;
+let vol = 0;
 const pause_text = document.getElementById("pause_div");
 var pauseInterval;
 
@@ -34,13 +29,13 @@ let y_save = [];
 let snake_whole_parts = [];
 coordinate_of_id = [];
 
-for (i in letters) {
-  for (key in numbers) {
-    coordinate_of_id.push(`${letters[i]}:${numbers[key]}`);
+for (i in y_axis) {
+  for (key in x_axis) {
+    coordinate_of_id.push(`${y_axis[i]}:${x_axis[key]}`);
   }
 }
 
-create_game_field(20, field_color);
+create_game_field(field_size, field_color);
 create_snake_head();
 
 const snake = document.getElementById("i_am_boss");
@@ -56,36 +51,46 @@ function create_snake_head() {
   game_field.appendChild(head);
 }
 
-function create_game_field(n, color) {
-  for (i = 0; i < n; i++) {
-    for (j = 0; j < n; j++) {
+function create_game_field(field_size, color) {
+  for (i = 0; i < field_size; i++) {
+    x_axis.push(i);
+    y_axis.push(i);
+  }
+
+  w = field_size * 21 + 100;
+  h = field_size * 21 + 250;
+  document.getElementById("source_div").style.width = `${w}px`;
+  document.getElementById("source_div").style.height = `${h}px`;
+  game_field.style.gridTemplateColumns = `repeat(${field_size}, 1fr)`;
+  for (y = 0; y < field_size; y++) {
+    for (x = 0; x < field_size; x++) {
       let field_cube = document.createElement("div");
       field_cube.setAttribute("class", "class" + 1);
       field_cube.style.backgroundColor = color;
       field_cube.style.display = "grid";
 
-      field_cube.setAttribute("id", `${i}_${j}`);
+      field_cube.setAttribute("id", `${x}_${y}`);
       game_field.appendChild(field_cube);
     }
   }
-  change_radius_all_board_angles(n);
+  change_radius_all_board_angles(field_size);
 }
 
-function change_radius_all_board_angles(n) {
+function change_radius_all_board_angles(field_size) {
   //left_top
   lt_el = document.getElementById("0_0");
   lt_el.style.borderTopLeftRadius = "3px";
 
   //left_top
-  rt_el = document.getElementById(`${n-1}_0`);
+  rt_el = document.getElementById(`${field_size - 1}_0`);
   rt_el.style.borderTopRightRadius = "3px";
 
   //left_bot
-  rt_el = document.getElementById(`0_${n-1}`);
+  rt_el = document.getElementById(`0_${field_size - 1}`);
   rt_el.style.borderBottomLeftRadius = "3px";
-  
+
   //right_bot
-  rt_el = document.getElementById(`${n-1}_${n-1}`);
+  rt_el = document.getElementById(`${field_size - 1}_${field_size - 1}`);
   rt_el.style.borderBottomRightRadius = "3px";
 }
 
@@ -108,8 +113,6 @@ function trunk_queue() {
 function move(current_direction) {
   y = snake.style.getPropertyValue("--y");
   x = snake.style.getPropertyValue("--x");
-
-  console.log("dir " + current_direction);
 
   switch (current_direction) {
     case 0:
@@ -141,6 +144,7 @@ function move(current_direction) {
 }
 
 function start_game() {
+  document.getElementById("dialog_wind").style.zIndex = "-1";
   clean_field();
   snake.style.setProperty("--x", -1);
   snake.style.setProperty("--y", 0);
@@ -159,26 +163,32 @@ function change_color_to_grey(past_cord) {
   document.getElementById(past_cord).style.backgroundColor = field_color;
 }
 
-function show_aim_cube_and_start(n) {
-  let x = Math.floor(Math.random() * n);
-  let y = Math.floor(Math.random() * n);
+function show_aim_cube_and_start(field_size) {
+  let x = Math.floor(Math.random() * field_size);
+
+  let y = Math.floor(Math.random() * field_size);
+
   if (x_save.find((el) => el == x) && y_save.find((el) => el == y)) {
-    show_aim_cube_and_start();
+    show_aim_cube_and_start(field_size);
   }
-  let coordinate = `${y}_${x}`;
+  let coordinate = `${x}_${y}`;
   x_coord = x;
-  y_coprd = y;
+  y_coord = y;
   if (score === 0) {
     return change_color(coordinate);
-  } else change_color_to_grey(old_cord);
-  change_color(coordinate);
+  } else {
+    change_color_to_grey(old_cord);
+    change_color(coordinate);
+  }
 }
 
 function take_a_cube() {
   if (
     snake.style.getPropertyValue("--x") * 21 === x_coord * 21 &&
-    snake.style.getPropertyValue("--y") * 21 === y_coprd * 21
+    snake.style.getPropertyValue("--y") * 21 === y_coord * 21
   ) {
+    console.log(`${snake.style.getPropertyValue("--x")}===${x_coord}`);
+    console.log(`${snake.style.getPropertyValue("--y")}===${y_coord}`);
     score++;
     create_snake_body(
       // создаю тело и помещаю в него х и у
@@ -186,7 +196,7 @@ function take_a_cube() {
       snake.style.getPropertyValue("--x"),
       snake.style.getPropertyValue("--y")
     );
-    show_aim_cube_and_start();
+    show_aim_cube_and_start(field_size);
   }
   if (score > 0) {
     x_save.push(snake.style.getPropertyValue("--x"));
@@ -200,22 +210,18 @@ function death_condition(n) {
     clearTimeout(timer);
     snake.style.setProperty("--x", n - 1);
     alert_death();
-    create_game_field();
   } else if (snake.style.getPropertyValue("--x") >= n) {
     clearTimeout(timer);
     snake.style.setProperty("--x", n - 1);
     alert_death();
-    create_game_field();
   } else if (snake.style.getPropertyValue("--y") < 0) {
     clearTimeout(timer);
     snake.style.setProperty("--y", 0);
     alert_death();
-    create_game_field();
   } else if (snake.style.getPropertyValue("--y") >= n) {
     clearTimeout(timer);
     snake.style.setProperty("--y", n - 1);
     alert_death();
-    create_game_field();
   }
 }
 
@@ -233,10 +239,14 @@ function death_from_body() {
 
 //Сделать заставку как в dark souls со звуком
 function alert_death() {
-  alert("You lose");
+  // document.getElementById("dialog_wind").className = "dead_souls_visible";
+  document.getElementById("dialog_wind").style.zIndex = "1";
   sound();
-  snake.style.setProperty("--x", 0);
-  snake.style.setProperty("--y", 0);
+  setTimeout(() => {
+    snake.style.setProperty("--x", 0);
+    snake.style.setProperty("--y", 0);
+  }, 1500);
+
   direction = 2;
   clean_field();
 }
