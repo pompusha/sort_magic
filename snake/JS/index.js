@@ -6,7 +6,7 @@ const game_field = document.getElementById("snake_game_field");
 const apple_color = "red";
 const field_color = "#679267";
 
-let field_size = 20;
+let field_size = 30;
 
 let score = 0;
 let old_cord = 0;
@@ -317,6 +317,7 @@ function change_speed(d) {
   let speed_div = document.getElementById("speed_div");
   speed_div.innerHTML = `Speed: ${400 - snake_whole_parts.length * 3}`;
 }
+
 document.addEventListener("keyup", function (key) {
   if (key.key == "ArrowLeft" || key.key === "a" || key.key == "ф") {
     left_click();
