@@ -10,6 +10,7 @@ let field_size = 20;
 
 let score = 0;
 let old_cord = 0;
+let pause_mem = [];
 let x_axis = [];
 let y_axis = [];
 let x_coord = null;
@@ -68,7 +69,6 @@ function create_game_field(field_size, color) {
       field_cube.setAttribute("class", "class" + 1);
       field_cube.style.backgroundColor = color;
       field_cube.style.display = "grid";
-
       field_cube.setAttribute("id", `${x}_${y}`);
       game_field.appendChild(field_cube);
     }
@@ -132,7 +132,6 @@ function move(current_direction) {
   x = snake.style.setProperty("--x", x);
   movement_body();
   take_a_cube();
-
   if (direction_queue.length > 0) {
     change_direction = direction_queue.shift();
     current_direction = (current_direction + change_direction + 4) % 4;
@@ -144,8 +143,17 @@ function move(current_direction) {
 }
 
 function start_game() {
-  document.getElementById("dialog_wind").style.zIndex = "-1";
+  if (start_check === true) {
+    clearTimeout(timer);
+    snake.style.setProperty("--x", 0);
+    snake.style.setProperty("--y", 0);
+    start_check = false;
+    pause = true;
+    return;
+  }
+  document.getElementById("dialog_wind").style.visibility = "hidden";
   clean_field();
+  pause = true;
   snake.style.setProperty("--x", -1);
   snake.style.setProperty("--y", 0);
   clearTimeout(timer);
@@ -187,8 +195,6 @@ function take_a_cube() {
     snake.style.getPropertyValue("--x") * 21 === x_coord * 21 &&
     snake.style.getPropertyValue("--y") * 21 === y_coord * 21
   ) {
-    console.log(`${snake.style.getPropertyValue("--x")}===${x_coord}`);
-    console.log(`${snake.style.getPropertyValue("--y")}===${y_coord}`);
     score++;
     create_snake_body(
       // создаю тело и помещаю в него х и у
@@ -205,10 +211,20 @@ function take_a_cube() {
   show_score();
 }
 
+function create_snake_body(i, x_, y_) {
+  body = document.createElement("div");
+  body.setAttribute("id", i);
+  body.setAttribute("class", "body");
+  game_field.appendChild(body);
+  body.style.setProperty("--x", x_);
+  body.style.setProperty("--y", y_);
+  snake_whole_parts.push(document.getElementById(i));
+}
+
 function death_condition(n) {
   if (snake.style.getPropertyValue("--x") < 0) {
     clearTimeout(timer);
-    snake.style.setProperty("--x", n - 1);
+    snake.style.setProperty("--x", 0);
     alert_death();
   } else if (snake.style.getPropertyValue("--x") >= n) {
     clearTimeout(timer);
@@ -239,16 +255,15 @@ function death_from_body() {
 
 //Сделать заставку как в dark souls со звуком
 function alert_death() {
-  // document.getElementById("dialog_wind").className = "dead_souls_visible";
-  document.getElementById("dialog_wind").style.zIndex = "1";
+  document.getElementById("dialog_wind").style.visibility = "visible";
   sound();
   setTimeout(() => {
     snake.style.setProperty("--x", 0);
     snake.style.setProperty("--y", 0);
+    clean_field();
   }, 1500);
 
   direction = 2;
-  clean_field();
 }
 
 function clean_field() {
@@ -259,7 +274,11 @@ function clean_field() {
   direction_queue = [];
   direction = 2;
   start_check = false;
+  pause === true;
+  press_pause(pause);
   field = document.getElementsByClassName("class1");
+  clearInterval(pauseInterval);
+  pause_text.style.visibility = "hidden";
   for (i = 0; i < field.length; i++) {
     if (field[i].style.backgroundColor === apple_color) {
       field[i].style.backgroundColor = field_color;
@@ -271,20 +290,14 @@ function clean_field() {
   }
 }
 
-function create_snake_body(i, x_, y_) {
-  body = document.createElement("div");
-  body.setAttribute("id", i);
-  body.setAttribute("class", "body");
-  game_field.appendChild(body);
-  body.style.setProperty("--x", x_);
-  body.style.setProperty("--y", y_);
-  snake_whole_parts.push(document.getElementById(i));
-}
-
+//
+//
+//
 function movement_body() {
   for (j in snake_whole_parts) {
     for (i = 0; i < x_save.length; i++) {
       u = i - j;
+
       snake_whole_parts[j].style.setProperty("--x", x_save[u]);
       snake_whole_parts[j].style.setProperty("--y", y_save[u]);
       if (x_save.length > snake_whole_parts.length + 1) {
@@ -312,7 +325,11 @@ document.addEventListener("keyup", function (key) {
   } else if (key.key === "w") {
     start_game();
   } else if (key.key == "e") {
-    press_pause(pause);
+    if (start_check === false) {
+      return;
+    } else {
+      press_pause(pause);
+    }
   }
 });
 
@@ -322,11 +339,12 @@ function sound() {
   myAudio.play();
 }
 
-function press_pause(p) {
+function press_pause(pause_status) {
+  console.log(`pause = ${pause}`);
   if (start_check === false) {
     return;
   } else {
-    if (p === true) {
+    if (pause_status === true) {
       pause = false;
       clearTimeout(timer);
       if (pause === false) {
@@ -335,12 +353,11 @@ function press_pause(p) {
             pause_text.style.visibility == "visible" ? "" : "visible";
         }, 1000);
       }
-    } else if (p === false) {
+    } else if (pause_status === false) {
       clearInterval(pauseInterval);
       pause = true;
       pause_text.style.visibility = "hidden";
       move(direction);
-      console.log("play");
     }
   }
 }

@@ -70,11 +70,11 @@ body{
   top: calc(21px* ( 0 + var(--y) ) );
   left: calc(21px* ( 0 + var(--x) ) );
   border: 1px solid black;
-  transition: 0.2s;
+  transition: 0.1s ;
   z-index: 9;
 }
 .body{
-  transition: 0.2s;
+  transition: 0.1s ease-in-out;
   position: absolute;
   border: 0.5px solid black;
   border-radius: 1px;
@@ -103,6 +103,7 @@ body{
   left: 166px;
   position: absolute;
   background-color: rgb(116, 222, 222);
+ 
 }
 .speed{
   height: fit-content;
@@ -118,7 +119,6 @@ body{
   right: 15px;
   background-color: rgb(116, 222, 222);
   visibility: hidden;
-
 }
 
 /* button */
@@ -138,6 +138,7 @@ button{
   width: fit-content;
   background: rgb(235, 235, 65);
   height: fit-content;
+  transition: 1s;
 }
 
 .but_start{ 
@@ -179,11 +180,19 @@ button{
   border-radius: 6px;
   position: absolute;
 }
-
-
-.dead_souls{
+/* .volume, .but_pause , */
+ button:hover {
+  background-color:  rgb(201, 201, 52);
+  transform:translateY(-5px);
   transition: 1s;
-  z-index: -1;
+
+}
+.dead_souls{
+  /* visibility: visible; */
+ 
+  transition: 2s; 
+  visibility: hidden;
+  opacity: 1;
   position: absolute;
   top: 35%;
   left: 20%;
