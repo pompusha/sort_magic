@@ -42,6 +42,24 @@ for (i = 0; i < 20; i++) {
   };
   data_base.push(object);
 }
+for (i = 0; i < 10; i++) {
+  object = {
+    id: i,
+    model: get_random_element(models),
+    year: get_random_element(years),
+    distance: Math.round(Math.random() * 180000 + 20000),
+    colors: get_random_element(colors),
+    weight: Math.round((Math.random() * 3 + 1.5) * 10) / 10,
+    engine: {
+      power: Math.round(
+        Math.random() * (power_boards[1] - power_boards[0]) + power_boards[0]
+      ),
+      number: crypto.randomUUID().toString(),
+      guarantee: randomDate(new Date(), new Date(2026, 0, 1)),
+    },
+  };
+  data_base.push(object);
+}
 
 function randomDate(start, end) {
   return new Date(
@@ -74,31 +92,36 @@ console.log(data_base);
 */
 
 const unique_owners = [...new Set(data_base.map((el) => `owner: ${el.owner}`))];
+console.log("result 1++");
 console.log(unique_owners);
-// ;
+
 
 const unique_color = [...new Set(data_base.map((el) => `color: ${el.colors}`))];
+console.log("result 2++");
 console.log(unique_color);
 
 const unique_cars_by_years_old = data_base.filter((el) => el.year > 2020);
+console.log("result 3+");
 console.log(unique_cars_by_years_old);
 
-const unique_engine_performance = data_base.filter(
+const unique_models_performance = [...new Set(data_base.filter(
   (el) => el.engine.power > 150
-);
-console.log(unique_engine_performance);
+).map(e => e.model))];
+console.log("result 4-");
+console.log(unique_models_performance);
 
-const unique_noOwner_year = data_base.filter((el) => {
-  if (el.owner === "yandex" && el.year > 2020) {
-    return `prinadleshat Yandex i menshe 100000 ${el}`;
-  }
-});
-
+const unique_noOwner_year = data_base.filter((el) => !el.owner && el.distance < 100000);
+console.log("result 5+");
 console.log(unique_noOwner_year);
 
 const summ_weight_cars = data_base.reduce((summ, el) => {
-  return 2022 >= el.year >= 2020 ? summ : summ + el.weight;
+  if (2022 >= el.year >= 2020) 
+    summ += el.weight;
+  return summ;
+
+  //  return 2022 >= el.year >= 2020 ? summ : summ + el.weight;
 }, 0);
+console.log("result 6++");
 console.log(summ_weight_cars);
 
 const unique_average_age = data_base.reduce((sum, el) => {
@@ -111,24 +134,28 @@ const unique_average_age = data_base.reduce((sum, el) => {
 
   return sum / data_base.filter((el) => el.owner === "yandex").length;
 }, 0);
+console.log("result 7+");
 console.log(unique_average_age);
+
+const sorted = data_base.sort((a, b) => b.engine.guarantee.getTime() - a.engine.guarantee.getTime())
+                      .map(e => e.engine.number)[0];
 
 const last_insurance_police = data_base
   .filter((elem) => {
     if (
       elem.engine.guarantee.getTime() ===
       Math.max(
-        ...data_base.map((el) => {
-          return `${el.engine.guarantee.getTime()}`;
-        })
+        ...data_base.map((el) => el.engine.guarantee.getTime())
       )
     )
-      return `the car is number${elem.engine.number}`;
+      return `the car is number ${elem.engine.number}`;
   })
   .map((el) => {
-    return `the car is number${el.engine.number}`;
+    return `the car is number ${el.engine.number}`;
   });
 
+console.log("result 8");
+console.log(sorted);
 console.log(last_insurance_police);
 
 const unique_average_distance = data_base.reduce((sum, el) => {
@@ -249,21 +276,18 @@ function create_open_cart(cart_id) {
   header = document.createElement("h1");
   header.innerHTML = data_base[cart_id]["id"];
   open_card.appendChild(header);
+  console.log(data_base[cart_id]);
   for (i in data_base[cart_id]) {
     if (status_open === true) {
-      if (i === "id") {
-        console.log(i);
-      } else if (i === "engine") {
-        for (j in data_base[cart_id]["engine"]) {
+      if (i === "engine") {
+        for (j in data_base[cart_id][i]) {
           console.log(data_base[cart_id][i][j]);
-          info_div = document.createElement("div");
-          info_div.innerHTML = data_base[cart_id][i][j];
-          open_card.appendChild(info_div);
+          card = createCard(data_base[cart_id][i][j])  
+          open_card.appendChild(card);
         }
       } else {
-        info_div = document.createElement("div");
-        info_div.innerHTML = data_base[cart_id][i];
-        open_card.appendChild(info_div);
+        card = createCard(data_base[cart_id][i])
+        open_card.appendChild(card);
       }
 
       // console.log(i);
@@ -275,6 +299,30 @@ function create_open_cart(cart_id) {
     }
   }
   // header.innerHTML = data_base[cart_id]["id"];
+}
+
+
+//рекурсивный обход объекта - разобраться!!!
+function iterate(obj, stack) {
+  for (var property in obj) {
+      if (obj.hasOwnProperty(property)) { //возможно этот if на хуй не нужен
+          if (typeof obj[property] == "object") {
+              iterate(obj[property], stack + '.' + property);
+          } else {
+              console.log(property + "   " + obj[property]);
+              $('#output').append($("<div/>").text(stack + '.' + property))
+          }
+      }
+  }
+}
+
+iterate(object, '');
+
+
+function createCard(el) {
+  info_div = document.createElement("div");
+  info_div.innerHTML = el;
+  return info_div;
 }
 // for (i in data_base[0]) {
 //   console.log(data_base[0][i]);
