@@ -226,14 +226,29 @@ result = data_base
 // .reduce((prev, current) => {
 //   return prev.engine.guarantee > current.engine.guarantee ? prev : current;
 // });
-console.log("______________________");
-console.log(result);
-console.log("______________________");
-test = data_base
-  .filter((el) => el.owner === "yandex")
-  .filter((el) => el.colors === "red");
-console.log(test);
-console.log("______________________");
+// console.log("______________________");
+// console.log(result);
+// console.log("______________________");
+// test = data_base
+//   .filter((el) => el.owner === "yandex")
+//   .filter((el) => el.colors === "red");
+// console.log(test);
+// console.log("______________________");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const main_container = document.getElementById("cart_container");
 for (i = 0; i < data_base.length; i++) {
   test_cart = document.createElement("div");
@@ -254,101 +269,70 @@ for (i = 0; i < data_base.length; i++) {
   someFunc(i);
 }
 
-const opened_carts = document.getElementById("cart_full_description");
-
-// for (i = 0; i < data_base.length; i++) {
-//   test_cart = document.createElement("div");
-//   test_cart.style.weight = "70px";
-//   test_cart.style.height = "70px";
-//   test_cart.style.background = "grey";
-//   test_cart.innerHTML = data_base[i]["id"];
-//   test_cart.append(data_base[i]["model"]);
-
-//   test_cart.classList.add("opened_cart");
-//   opened_carts.appendChild(test_cart);
-// }
 const open_card = document.getElementById("opened_cart");
+let status_open = false;
+const wraper_carts = document.getElementById("cart_full_description");
+
 function create_open_cart(cart_id) {
   opening_card();
+  if (status_open === true) {
+    wraper_opened_card = document.createElement("div");
+    wraper_opened_card.innerHTML = data_base[cart_id]["id"];
+    open_card.appendChild(wraper_opened_card);
 
-  // console.log(cart_id);
-  wraper_opened_card = document.createElement("div");
-  header = document.createElement("h1");
-  header.innerHTML = data_base[cart_id]["id"];
-  open_card.appendChild(header);
-  console.log(data_base[cart_id]);
-  for (i in data_base[cart_id]) {
-    if (status_open === true) {
-      if (i === "engine") {
-        for (j in data_base[cart_id][i]) {
-          console.log(data_base[cart_id][i][j]);
-          card = createCard(data_base[cart_id][i][j])  
-          open_card.appendChild(card);
+    //console.log(data_base[cart_id]);
+  
+    for (i in data_base[cart_id]) {
+      if (status_open === true) {
+        if (i === "engine") {
+          for (j in data_base[cart_id][i]) {
+            //console.log(data_base[cart_id][i][j]);
+            card = createCard(data_base[cart_id][i][j])  
+            wraper_opened_card.appendChild(card);
+          }
+        } else {
+          card = createCard(data_base[cart_id][i])
+          wraper_opened_card.appendChild(card);
         }
-      } else {
-        card = createCard(data_base[cart_id][i])
-        open_card.appendChild(card);
-      }
-
-      // console.log(i);
-    } else {
-      console.log(`Tak cho za hren proishodit ${status_open}`);
-      while (open_card.firstChild) {
-        open_card.removeChild(open_card.lastChild);
-      }
+      } 
+    }
+  } else {
+    if (open_card.hasChildNodes()) {
+      open_card.removeChild(open_card.firstChild);
     }
   }
   // header.innerHTML = data_base[cart_id]["id"];
 }
 
-
-//рекурсивный обход объекта - разобраться!!!
-function iterate(obj, stack) {
-  for (var property in obj) {
-      if (obj.hasOwnProperty(property)) { //возможно этот if на хуй не нужен
-          if (typeof obj[property] == "object") {
-              iterate(obj[property], stack + '.' + property);
-          } else {
-              console.log(property + "   " + obj[property]);
-              $('#output').append($("<div/>").text(stack + '.' + property))
-          }
-      }
+function opening_card() {
+  if (status_open) {
+    status_open = false;
+    wraper_carts.style.display = "none";
+  } else {
+    status_open = true;
+    wraper_carts.style.display = "flex";
   }
 }
-
-iterate(object, '');
-
 
 function createCard(el) {
   info_div = document.createElement("div");
   info_div.innerHTML = el;
   return info_div;
 }
-// for (i in data_base[0]) {
-//   console.log(data_base[0][i]);
+
+//рекурсивный обход объекта - разобраться!!!
+// function iterate(obj, stack) {
+//   for (var property in obj) {
+//       if (obj.hasOwnProperty(property)) { //возможно этот if на хуй не нужен
+//           if (typeof obj[property] == "object") {
+//               iterate(obj[property], stack + '.' + property);
+//           } else {
+//               console.log(property + "   " + obj[property]);
+//               $('#output').append($("<div/>").text(stack + '.' + property))
+//           }
+//       }
+//   }
 // }
 
-status_open = true;
+// iterate(object, '');
 
-const wraper_carts = document.getElementById("cart_full_description");
-function opening_card() {
-  if (status_open === false) {
-    status_open = true;
-    wraper_carts.style.display = "";
-  } else {
-    status_open = false;
-    wraper_carts.style.display = "none";
-  }
-}
-
-// Object.keys(data_base[1])
-// for (i in data_base[0]) {
-//   console.log(i);
-//   //   if (Object.keys(data_base[0][i]).length > 1) {
-//   //     for (j in data_base[0][i]) {
-//   //       console.log(data_base[0][i][j]);
-//   //     }
-//   //   }
-// }
-
-// console.log(Object.keys(data_base[0]["engine"]));

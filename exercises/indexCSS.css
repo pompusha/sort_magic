@@ -42,7 +42,7 @@ background-color: antiquewhite;
 
 
 .opened_cart_wrapper{
-  /* display: none ; */
+  display: none ;
   position:relative;
   width: 400px;
   height: 400px;
@@ -51,8 +51,6 @@ background-color: antiquewhite;
   border-radius: 40px;
   transition: 0.5s;
   transform: scaleX(200px);
-  /* display: flex; */
-  /* flex-direction: ; */
 }
 
 .opened_cart{
