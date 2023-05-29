@@ -70,7 +70,7 @@ function randomDate(start, end) {
 function get_random_element(elements) {
   return elements[Math.round(Math.random() * (elements.length - 1))];
 }
-console.log(data_base);
+// console.log(data_base);
 //---------------------------------------------
 /*
 1. Вернуь всех владельцев автомобилей-DONE
@@ -92,37 +92,39 @@ console.log(data_base);
 */
 
 const unique_owners = [...new Set(data_base.map((el) => `owner: ${el.owner}`))];
-console.log("result 1++");
-console.log(unique_owners);
-
+// console.log("result 1++");
+// console.log(unique_owners);
 
 const unique_color = [...new Set(data_base.map((el) => `color: ${el.colors}`))];
-console.log("result 2++");
-console.log(unique_color);
+// console.log("result 2++");
+// console.log(unique_color);
 
 const unique_cars_by_years_old = data_base.filter((el) => el.year > 2020);
-console.log("result 3+");
-console.log(unique_cars_by_years_old);
+// console.log("result 3+");
+// console.log(unique_cars_by_years_old);
 
-const unique_models_performance = [...new Set(data_base.filter(
-  (el) => el.engine.power > 150
-).map(e => e.model))];
-console.log("result 4-");
-console.log(unique_models_performance);
+const unique_models_performance = [
+  ...new Set(
+    data_base.filter((el) => el.engine.power > 150).map((e) => e.model)
+  ),
+];
+// console.log("result 4-");
+// console.log(unique_models_performance);
 
-const unique_noOwner_year = data_base.filter((el) => !el.owner && el.distance < 100000);
-console.log("result 5+");
-console.log(unique_noOwner_year);
+const unique_noOwner_year = data_base.filter(
+  (el) => !el.owner && el.distance < 100000
+);
+// console.log("result 5+");
+// console.log(unique_noOwner_year);
 
 const summ_weight_cars = data_base.reduce((summ, el) => {
-  if (2022 >= el.year >= 2020) 
-    summ += el.weight;
+  if (2022 >= el.year >= 2020) summ += el.weight;
   return summ;
 
   //  return 2022 >= el.year >= 2020 ? summ : summ + el.weight;
 }, 0);
-console.log("result 6++");
-console.log(summ_weight_cars);
+// console.log("result 6++");
+// console.log(summ_weight_cars);
 
 const unique_average_age = data_base.reduce((sum, el) => {
   //   count = 0;
@@ -134,19 +136,18 @@ const unique_average_age = data_base.reduce((sum, el) => {
 
   return sum / data_base.filter((el) => el.owner === "yandex").length;
 }, 0);
-console.log("result 7+");
-console.log(unique_average_age);
+// console.log("result 7+");
+// console.log(unique_average_age);
 
-const sorted = data_base.sort((a, b) => b.engine.guarantee.getTime() - a.engine.guarantee.getTime())
-                      .map(e => e.engine.number)[0];
+const sorted = data_base
+  .sort((a, b) => b.engine.guarantee.getTime() - a.engine.guarantee.getTime())
+  .map((e) => e.engine.number)[0];
 
 const last_insurance_police = data_base
   .filter((elem) => {
     if (
       elem.engine.guarantee.getTime() ===
-      Math.max(
-        ...data_base.map((el) => el.engine.guarantee.getTime())
-      )
+      Math.max(...data_base.map((el) => el.engine.guarantee.getTime()))
     )
       return `the car is number ${elem.engine.number}`;
   })
@@ -154,9 +155,9 @@ const last_insurance_police = data_base
     return `the car is number ${el.engine.number}`;
   });
 
-console.log("result 8");
-console.log(sorted);
-console.log(last_insurance_police);
+// console.log("result 8");
+// console.log(sorted);
+// console.log(last_insurance_police);
 
 const unique_average_distance = data_base.reduce((sum, el) => {
   //   count = 0;
@@ -168,7 +169,7 @@ const unique_average_distance = data_base.reduce((sum, el) => {
 
   return sum / data_base.filter((el) => el.year === 2019).length;
 }, 0);
-console.log(unique_average_age);
+// console.log(unique_average_age);
 
 const all_model_red_color = data_base
   .filter((el) => el.colors === "red")
@@ -187,11 +188,11 @@ const all_model_red_color = data_base
     return `Модель ${el.model}`;
   });
 
-console.log(all_model_red_color);
+// console.log(all_model_red_color);
 
 // 12. Вернуть номер двигателя автомобиля с самым длинным пробегом и мощностью меньше 150 ЛС
 
-console.log("______________________");
+// console.log("______________________");
 const a = data_base
   .filter((el) => el.engine.power < 150)
   .reduce((prev, current) => {
@@ -200,11 +201,11 @@ const a = data_base
 number_engine = [];
 number_engine.push(a);
 
-console.log(
-  number_engine.map((el) => {
-    return `${el.engine.number}`;
-  })
-);
+// console.log(
+//   number_engine.map((el) => {
+//     return `${el.engine.number}`;
+//   })
+// );
 
 // 13. Вернуть самый большой срок гарантии среди всех красных автомобилей Яндекса
 result = data_base
@@ -218,121 +219,116 @@ result = data_base
       return [el];
     }
   });
-// почему возвращает обьект
-
-// .map((el) => {
-//   return `garant ${el.engine.guarantee}`;
-// })
-// .reduce((prev, current) => {
-//   return prev.engine.guarantee > current.engine.guarantee ? prev : current;
-// });
-// console.log("______________________");
-// console.log(result);
-// console.log("______________________");
-// test = data_base
-//   .filter((el) => el.owner === "yandex")
-//   .filter((el) => el.colors === "red");
-// console.log(test);
-// console.log("______________________");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const main_container = document.getElementById("cart_container");
 for (i = 0; i < data_base.length; i++) {
   test_cart = document.createElement("div");
-  test_cart.style.weight = "70px";
-  test_cart.style.height = "70px";
-  test_cart.style.background = "grey";
-  test_cart.innerHTML = data_base[i]["id"];
-  test_cart.append(data_base[i]["model"]);
+  test_cart.innerHTML = `id #${data_base[i]["id"]} `;
+  test_cart.append(` машина марки ${data_base[i]["model"]}`);
   test_cart.setAttribute("id", i);
   test_cart.classList.add("cart");
   main_container.appendChild(test_cart);
 
   function someFunc(index) {
     test_cart.addEventListener("click", function () {
-      create_open_cart(index);
+      create_open_cart(data_base[index]);
     });
   }
   someFunc(i);
 }
+//
+let open = true;
+//
+test_cart = document.createElement("div");
+// test_cart.innerHTML = `крышка`;
+test_cart.setAttribute("id", "over_last_folder");
+test_cart.classList.add("overall");
+test_cart.addEventListener("click", function () {
+  if (open === true) {
+    folder_class = document.getElementsByClassName("cart");
+    open = false;
+    for (i = 0; i < folder_class.length; i++) {
+      folder_class[i].style.marginBottom = "-95px";
+    }
+  } else {
+    open = true;
+    for (i = 0; i < folder_class.length; i++) {
+      folder_class[i].style.marginBottom = "-115px";
+    }
+  }
+});
+main_container.appendChild(test_cart);
+//
 
+//
 const open_card = document.getElementById("opened_cart");
-let status_open = false;
+let status_open = true;
 const wraper_carts = document.getElementById("cart_full_description");
 
-function create_open_cart(cart_id) {
+function create_open_cart(card_id) {
   opening_card();
-  if (status_open === true) {
+  if (status_open === false) {
     wraper_opened_card = document.createElement("div");
-    wraper_opened_card.innerHTML = data_base[cart_id]["id"];
+    wraper_opened_card.setAttribute("class", "head_id");
+    wraper_opened_card.innerHTML = `№${card_id["id"]}`;
     open_card.appendChild(wraper_opened_card);
-
-    //console.log(data_base[cart_id]);
-  
-    for (i in data_base[cart_id]) {
-      if (status_open === true) {
-        if (i === "engine") {
-          for (j in data_base[cart_id][i]) {
-            //console.log(data_base[cart_id][i][j]);
-            card = createCard(data_base[cart_id][i][j])  
-            wraper_opened_card.appendChild(card);
-          }
-        } else {
-          card = createCard(data_base[cart_id][i])
-          wraper_opened_card.appendChild(card);
-        }
-      } 
-    }
-  } else {
-    if (open_card.hasChildNodes()) {
-      open_card.removeChild(open_card.firstChild);
-    }
-  }
-  // header.innerHTML = data_base[cart_id]["id"];
-}
-
-function opening_card() {
-  if (status_open) {
-    status_open = false;
-    wraper_carts.style.display = "none";
-  } else {
-    status_open = true;
-    wraper_carts.style.display = "flex";
+    print_card(card_id);
   }
 }
 
-function createCard(el) {
+function print_card(card_id) {
+  for (i in card_id) {
+    if (typeof card_id[i] == "object" && i != "guarantee") {
+      {
+        print_card(card_id[i]);
+      }
+    } else {
+      whole_info_string = createCard(null, "whole_inf_str");
+      open_card.appendChild(whole_info_string);
+      head_column = createCard(i, "key_row");
+      whole_info_string.appendChild(head_column);
+      card = createCard(card_id[i], "value_row");
+      whole_info_string.appendChild(card);
+    }
+  }
+}
+
+function createCard(el, classname) {
   info_div = document.createElement("div");
+  info_div.setAttribute("class", classname);
   info_div.innerHTML = el;
   return info_div;
 }
 
-//рекурсивный обход объекта - разобраться!!!
-// function iterate(obj, stack) {
-//   for (var property in obj) {
-//       if (obj.hasOwnProperty(property)) { //возможно этот if на хуй не нужен
-//           if (typeof obj[property] == "object") {
-//               iterate(obj[property], stack + '.' + property);
-//           } else {
-//               console.log(property + "   " + obj[property]);
-//               $('#output').append($("<div/>").text(stack + '.' + property))
-//           }
-//       }
+function opening_card() {
+  if (status_open === false) {
+    status_open = true;
+    // wraper_carts.style.display = "visible";
+    // wraper_carts.style.visibility = "hidden";
+    wraper_carts.style.display = "none";
+    console.log(status_open);
+    // document.getElementById("close").style.display = "none";
+    clear_closed_card();
+  } else if (status_open === true) {
+    status_open = false;
+    // wraper_carts.style.visibility = "hidden";
+    // wraper_carts.style.display = "visible";
+    wraper_carts.style.display = "flex";
+    console.log(status_open);
+    // document.getElementById("close").style.display = "flex";
+  }
+}
+
+function clear_closed_card() {
+  while (open_card.firstChild) {
+    open_card.removeChild(open_card.lastChild);
+  }
+}
+
+// function close_wind() {
+//   if (status_open === false) {
+//     console.log("pdfsf");
+//     opening_card();
+//   } else {
 //   }
 // }
-
-// iterate(object, '');
-

@@ -11,11 +11,21 @@
     <div class="pusher"></div>
 
     <div class="main" id="b1">
-      <div class="opened_cart_wrapper" id="cart_full_description">
+      <div
+        class="opened_cart_wrapper"
+        id="cart_full_description"
+        onclick="opening_card()"
+      >
+        <div class="close_button" id="close" onclick="opening_card()">
+          <div class="x_butt"></div>
+        </div>
         <div class="opened_cart" id="opened_cart"></div>
       </div>
       <div class="header">Перечень карточек</div>
-      <div id="cart_container" class="container"></div>
+      <div class="paint">
+        <div class="straip"></div>
+      </div>
+      <div class="container" id="cart_container"></div>
     </div>
 
     <!-- Завести text field, который печатает ответ на домашнюю задачу в виде JSON строки-->
