@@ -332,3 +332,10 @@ function clear_closed_card() {
 //   } else {
 //   }
 // }
+
+arr = [];
+fetch("https://6476476ee607ba4797dd8944.mockapi.io/items")
+  .then((x) => x.json())
+  .then((data) => arr.push(data));
+
+console.log(arr);
