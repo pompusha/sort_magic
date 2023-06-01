@@ -275,10 +275,14 @@ function create_open_cart(card_id) {
     print_card(card_id);
   }
 }
-
+// console.log(Object.keys(data_base[0]).length);
 function print_card(card_id) {
   for (i in card_id) {
-    if (typeof card_id[i] == "object" && i != "guarantee") {
+    if (
+      typeof card_id[i] == "object" &&
+      Object.keys(card_id[i]).length > 1
+      // i != "guarantee"
+    ) {
       {
         print_card(card_id[i]);
       }
@@ -334,8 +338,34 @@ function clear_closed_card() {
 // }
 
 arr = [];
-fetch("https://6476476ee607ba4797dd8944.mockapi.io/items")
-  .then((x) => x.json())
-  .then((data) => arr.push(data));
 
-console.log(arr);
+async function logJSONData() {
+  const response = await fetch(
+    "https://6476476ee607ba4797dd8944.mockapi.io/items"
+  );
+  const jsonData = await response.json();
+  console.log(jsonData);
+}
+
+logJSONData();
+// console.log(arrFetch);
+
+arr1 = [1, 2, 78, 4, 3, 5, 6, 7, 6, 5, 3, 2, 4, 4, 78, 5, 88];
+arr2 = [];
+
+arr1.sort((a, b) => {
+  return a - b;
+});
+let b = 0;
+while (b < arr1.length) {
+  for (i = 0; i < arr1.length; i++) {
+    for (j = i + 1; j < arr1.length; j++) {
+      if (arr1[i] === arr1[j]) {
+        arr1.splice(j, 1);
+      }
+    }
+  }
+  b++;
+}
+
+console.log(arr1);
