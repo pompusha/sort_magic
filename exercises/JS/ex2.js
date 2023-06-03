@@ -258,7 +258,6 @@ test_cart.addEventListener("click", function () {
   }
 });
 main_container.appendChild(test_cart);
-//
 
 //
 const open_card = document.getElementById("opened_cart");
@@ -266,7 +265,7 @@ let status_open = true;
 const wraper_carts = document.getElementById("cart_full_description");
 
 function create_open_cart(card_id) {
-  opening_card();
+  toggle_card();
   if (status_open === false) {
     wraper_opened_card = document.createElement("div");
     wraper_opened_card.setAttribute("class", "head_id");
@@ -304,21 +303,21 @@ function createCard(el, classname) {
   return info_div;
 }
 
-function opening_card() {
-  if (status_open === false) {
+function toggle_card() {
+  if (!status_open) {
     status_open = true;
     // wraper_carts.style.display = "visible";
     // wraper_carts.style.visibility = "hidden";
     wraper_carts.style.display = "none";
-    console.log(status_open);
+    console.log(`Status on opening_card ${status_open}`);
     // document.getElementById("close").style.display = "none";
     clear_closed_card();
-  } else if (status_open === true) {
+  } else {
     status_open = false;
     // wraper_carts.style.visibility = "hidden";
     // wraper_carts.style.display = "visible";
     wraper_carts.style.display = "flex";
-    console.log(status_open);
+    console.log(`Status on opening_card ${status_open}`);
     // document.getElementById("close").style.display = "flex";
   }
 }
@@ -344,7 +343,7 @@ async function logJSONData() {
     "https://6476476ee607ba4797dd8944.mockapi.io/items"
   );
   const jsonData = await response.json();
-  console.log(jsonData);
+  console.log(response);
 }
 
 logJSONData();
