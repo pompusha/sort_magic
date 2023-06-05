@@ -1,3 +1,5 @@
+*{font-family: sans-serif;}
+
 body {
 background-color: antiquewhite;
 
@@ -11,63 +13,216 @@ background-color: antiquewhite;
 .main{
   position: relative;
   margin: 0 auto;
-  justify-content: center;
   background-color: rgb(187, 230, 230);
   width: 1200px;
   height: 800px;
-  border-radius: 40px;
+  border: 3px solid black;
+  border-radius: 15px;
+}
+
+.cover_folder{
+  margin: auto;
+  border: solid 2px black;
+  width: 250px;
+  background-color: rgb(214, 183, 183);
+
+  
+}
+/*  */
+.overall{
+  background-color: grey;
+  width: 250px;
+  height: 150px;
+  z-index: 2;
+  margin-left: 95px;
+  transition: 0.4s ease-in-out;
+}
+
+.overall:hover {
+  transform: translateY(3px);
+}
+.paint{
+  position: relative;
+  display: block;
+  background-color: grey;
+  width: 250px;
+  height: 80px;
+  margin: auto;
+
+}
+.straip{
+  bottom: 0;
+  position: absolute;
+  margin: auto;
+  display: block;
+  width: 250px;
+  height: 5px;
+  background-color: rgb(94, 93, 93);
 }
 
 .header{
+  border-radius: 13px 13px 0 0 ;
+  background-color: grey;
   text-align: center;
   font-size: 40px;
-  padding: 20px;
+  padding : 20px 0;
+  margin-bottom: 50px;
 }
 .container {
-  display: flex;
-  text-align: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
+  position: relative;
+  width: 240px;
+  margin: auto;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 150px;
+  justify-items: center ;
+  background-color: rgb(77, 76, 76);
+  /* border: 2px solid black; */
 }
-
+/* .container::before{
+  content: "";
+  width: 10px;
+  min-height: 750px;
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: -40px;
+  z-index: 2;
+} */
+/*  */
 .cart {
-  margin-left: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
+  margin-left: 90px;
+  background-image: linear-gradient(to left, #ff4b1f, #1fddff);
+  background-size: 200%;
+  margin-bottom: -115px;
+  height: 105px;
+  width: 200px;
+  position: relative;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 0 6px 6px 6px;
+  box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.59);
+  padding: 0.25em 0.5em;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  transition: 0.6s ease-in-out;
+  
+}
+
+.cart:before {
+  content: "";
+  width: 40%;
+  height: 12px;
+  border-radius: 0 20px 0 0;
+  background-color: white;
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  position: absolute;
+  top: -13px;
+  left: -1px;
+}
+
+.cart::after{
+  content: '';
+  position: absolute;
+  left:  0.8em;
+  width: 3em;
+  height: 5px;
+  top: -0.8em;
+  background: #7036E9;
+  border-radius: 0 0 5px 5px;
 }
 
 
+.cart:hover{
+  box-shadow: 15px rgb(91, 90, 90);
+  transform: translateY(-80px);
+  cursor: pointer;
+
+  background-position: -80px;
+  
+}
 
 
 .opened_cart_wrapper{
   display: none ;
   position:relative;
-  width: 400px;
-  height: 400px;
-  background-color: rgba(191, 191, 203, 0.7);
+  width: 1200px;
+  min-height: 800px;
+  background-color: rgba(191, 191, 203, 0);
   position:absolute;
   border-radius: 40px;
   transition: 0.5s;
   transform: scaleX(200px);
+  z-index: 1;
 }
 
 .opened_cart{
+  padding: 20px;
   width: 400px;
-  height: 400px;
+  height: 490px;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  /* background-color: bisque; */
+  z-index: 2;
+  background-color: rgb(164, 161, 161);
+  border-radius: 5px;
 }
 
 .cart_full_description{
+  padding: 5px;
   margin-bottom: 15px;
-  background-color: azure;
+  background-color: rgb(186, 186, 186);
   width: 180px;
   height: 40px;
   font-size: 14px;
+}
+
+
+
+
+
+.head_id{
+  margin-bottom: 15px;
+}
+
+.whole_inf_str{
+  display: flex;
+  margin-bottom: 15px;
+  background-color: aliceblue;
+  padding: 5px;
+}
+
+.key_row{
+  width: 70px;
+  margin-right: 10px;
+}
+.close_button{
+  display:none;
+  display: flex;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 30%;
+  top: 25%;
+  font-size:30px;
+  cursor: pointer;
+  z-index: 2;
+  border: 1px solid black;
+  background-color: antiquewhite;
+
+}
+
+.x_butt{
+  display: block;
+  /* text-align: center; */
+  /* background-color: black; */
+  width: 25px;
+  height: 25px;
+  border: 1px solid black;
 }
